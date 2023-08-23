@@ -1,11 +1,10 @@
 <h2>MOBILE BANKING E-WALLET</h2>
 
-<h4>Menggunakan Teknologi</h4> 
+<p>Aplikasi ini bertujuan untuk membuat sebuah aplikasi e banking seperti brimo,dana,dll</p>
+<h3>Pembuatannya menggunakan teknologi</h3>
 <ul>
   <li>Dart</li>
   <li>Php</li>
-  <li>Flutter</li>
   <li>Laravel</li>
-  <li>Json</li>
-  <li>Api</li>
+  <li>Flutter</li>
 </ul>
