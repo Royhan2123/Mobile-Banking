@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
-import 'package:mobile_ebanking/ui/pages/onboarding.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -15,12 +14,8 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const OnBoardingPage(),
-          ),
-          (route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/onBoarding', (route) => false);
     });
     super.initState();
   }
