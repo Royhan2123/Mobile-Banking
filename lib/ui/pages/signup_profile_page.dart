@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class SignUpProfilePage extends StatefulWidget {
@@ -14,14 +15,13 @@ class _SignUpProfilePageState extends State<SignUpProfilePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: lightBackgroundColor,
         body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           children: [
             Container(
               width: 155,
               height: 50,
-              margin: const EdgeInsets.only(top: 80, bottom: 100),
+              margin: const EdgeInsets.only(top: 60, bottom: 80),
               decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/img_logo_light.png"))),
@@ -85,6 +85,8 @@ class _SignUpProfilePageState extends State<SignUpProfilePage> {
                       height: 10,
                     ),
                     TextFormField(
+                      obscureText: true,
+                      inputFormatters: [LengthLimitingTextInputFormatter(6)],
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
+import 'package:mobile_ebanking/ui/pages/home_latest_transaction.dart';
+import 'package:mobile_ebanking/ui/pages/home_tips_item.dart';
+import 'package:mobile_ebanking/ui/pages/home_user_item.dart';
 import 'package:mobile_ebanking/ui/widgets/home_services_items.dart';
 
 class HomePage extends StatefulWidget {
@@ -82,6 +85,9 @@ class _HomePageState extends State<HomePage> {
             buildEwalletCard(),
             buildLevel(),
             buildServices(),
+            buildLatesTransaction(),
+            buildSendAgain(),
+            buildFriendlyTips(),
           ],
         ),
       ),
@@ -107,18 +113,23 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          Container(
-            width: 75,
-            height: 75,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                image: const DecorationImage(
-                    image: AssetImage("assets/img_profile.png"))),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Image.asset(
-                "assets/ic_check.png",
-                width: 22,
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/profilPage');
+            },
+            child: Container(
+              width: 75,
+              height: 75,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  image: const DecorationImage(
+                      image: AssetImage("assets/img_profile.png"))),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Image.asset(
+                  "assets/ic_check.png",
+                  width: 22,
+                ),
               ),
             ),
           ),
@@ -244,6 +255,163 @@ class _HomePageState extends State<HomePage> {
               HomeServicesItem(
                   iconUrl: "assets/ic_more.png", title: "More", ontap: () {}),
             ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget buildLatesTransaction() {
+    return Container(
+      margin: const EdgeInsets.only(top: 50),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Latest Transaction",
+            style: blackStyle.copyWith(fontSize: 15, fontWeight: semiBold),
+          ),
+          Container(
+            padding: const EdgeInsets.all(22),
+            margin: const EdgeInsets.only(top: 15),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+            ),
+            child: const Column(
+              children: [
+                HomeLatestTransactionItem(
+                    iconUrl: "assets/ic_transaction_cat1.png",
+                    time: "Yesterday",
+                    title: "Top Up",
+                    value: "+ 450.000"),
+                SizedBox(
+                  height: 25,
+                ),
+                HomeLatestTransactionItem(
+                    iconUrl: "assets/ic_transaction_cat2.png",
+                    time: "Sep 11",
+                    title: "Cashback",
+                    value: "+ 22.000"),
+                SizedBox(
+                  height: 25,
+                ),
+                HomeLatestTransactionItem(
+                    iconUrl: "assets/ic_transaction_cat3.png",
+                    time: "Sep 2",
+                    title: "WithDraw",
+                    value: "- 5.000"),
+                SizedBox(
+                  height: 25,
+                ),
+                HomeLatestTransactionItem(
+                    iconUrl: "assets/ic_transaction_cat4.png",
+                    time: "Aug 27",
+                    title: "Transfer",
+                    value: "- 123.500"),
+                SizedBox(
+                  height: 25,
+                ),
+                HomeLatestTransactionItem(
+                    iconUrl: "assets/ic_transaction_cat5.png",
+                    time: "Feb 18",
+                    title: "Electric",
+                    value: "- 12.300.000"),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildSendAgain() {
+    return Container(
+      margin: const EdgeInsets.only(top: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Send Again",
+            style: blackStyle.copyWith(fontSize: 15, fontWeight: semiBold),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          const SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                HomeUserItem(
+                  imageUrl: "assets/img_friend1.png",
+                  name: "@yuanita",
+                ),
+                HomeUserItem(
+                  imageUrl: "assets/img_friend2.png",
+                  name: "@jani",
+                ),
+                HomeUserItem(
+                  imageUrl: "assets/img_friend3.png",
+                  name: "@urip",
+                ),
+                HomeUserItem(
+                  imageUrl: "assets/img_friend4.png",
+                  name: "@masa",
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildFriendlyTips() {
+    return Container(
+      margin: const EdgeInsets.only(top: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Friendly Tips",
+            style: blackStyle.copyWith(fontSize: 15, fontWeight: semiBold),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              HomeTipsItem(
+                imageUrl: "assets/img_tips1.png",
+                title: "Best tips for using\na credit card",
+                url: "https://www.google.com",
+              ),
+              HomeTipsItem(
+                imageUrl: "assets/img_tips2.png",
+                title: "Spot the good pie\nof finance model",
+                url: "https://pub.dev/",
+              ),
+            ],
+          ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              HomeTipsItem(
+                imageUrl: "assets/img_tips3.png",
+                title: "Great hack to get\nbetter advices",
+                url:
+                    "https://www.youtube.com/watch?v=kFjiDhCdpYU&list=RDlo1yThDWsGk&index=18&ab_channel=LeMoesiekRevole",
+              ),
+              HomeTipsItem(
+                  imageUrl: "assets/img_tips4.png",
+                  title: "Save more penny\nbuy this instead",
+                  url:
+                      "https://class.buildwithangga.com/course_playing/mlrM6XgOwL/36"),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
           )
         ],
       ),

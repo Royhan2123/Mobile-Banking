@@ -28,7 +28,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightBackgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -102,6 +101,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                               height: 40,
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.lightBlue,
                                       backgroundColor: purpleColor,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
