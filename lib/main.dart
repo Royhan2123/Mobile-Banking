@@ -14,6 +14,10 @@ import 'package:mobile_ebanking/ui/pages/signup_set_ktp_page.dart';
 import 'package:mobile_ebanking/ui/pages/signup_set_profil_page.dart';
 import 'package:mobile_ebanking/ui/pages/signup_succes_page.dart';
 import 'package:mobile_ebanking/ui/pages/splash_page.dart';
+import 'package:mobile_ebanking/ui/pages/topup_amount.dart';
+import 'package:mobile_ebanking/ui/pages/topup_page.dart';
+import 'package:mobile_ebanking/ui/pages/topup_succes.dart';
+import 'package:mobile_ebanking/ui/pages/transfer_page.dart';
 
 void main() {
   runApp(const NewApp());
@@ -44,6 +48,10 @@ class NewApp extends StatelessWidget {
         '/profilEditPage': (context) => const ProfilEditPage(),
         '/profilEditPinPage': (context) => const ProfilEditPinPage(),
         '/profilEditSuccesPage': (context) => const ProfilEditSuccesPage(),
+        '/topUpPage': (context) => const TopUpPage(),
+        '/topUpAmountPage': (context) => const TopUpAmountPage(),
+        '/topUpSucces': (context) => const TopUpSucces(),
+        '/transferPage': (context) => const TransferPage(),
       },
     );
   }
