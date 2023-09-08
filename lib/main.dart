@@ -17,7 +17,9 @@ import 'package:mobile_ebanking/ui/pages/splash_page.dart';
 import 'package:mobile_ebanking/ui/pages/topup_amount.dart';
 import 'package:mobile_ebanking/ui/pages/topup_page.dart';
 import 'package:mobile_ebanking/ui/pages/topup_succes.dart';
+import 'package:mobile_ebanking/ui/pages/transfer_amount_page.dart';
 import 'package:mobile_ebanking/ui/pages/transfer_page.dart';
+import 'package:mobile_ebanking/ui/pages/transfer_succes_page.dart';
 
 void main() {
   runApp(const NewApp());
@@ -52,6 +54,8 @@ class NewApp extends StatelessWidget {
         '/topUpAmountPage': (context) => const TopUpAmountPage(),
         '/topUpSucces': (context) => const TopUpSucces(),
         '/transferPage': (context) => const TransferPage(),
+        '/transferAmountPage': (context) => const TransferAmountPage(),
+        '/transferSuccesPage': (context) => const TransferSuccesPage(),
       },
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
+import 'package:mobile_ebanking/ui/widgets/transfer_result_item.dart';
+import 'package:mobile_ebanking/ui/widgets/trasnfer_recent_user_item.dart';
 
 class TransferPage extends StatelessWidget {
   const TransferPage({super.key});
@@ -40,7 +42,6 @@ class TransferPage extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-
             TextField(
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
@@ -49,9 +50,103 @@ class TransferPage extends StatelessWidget {
                   contentPadding: const EdgeInsets.all(12),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20))),
-            )
+            ),
+            //  buildRecentUsers(),
+            buildResult(),
+            const SizedBox(
+              height: 250,
+            ),
+            Center(
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.blue,
+                      shadowColor: Colors.black,
+                      backgroundColor: purpleColor,
+                      shape: const StadiumBorder(),
+                      minimumSize: const Size(350, 40)),
+                  onPressed: () async {
+                    Navigator.pushNamed(context, '/transferAmountPage');
+                  },
+                  child: Text(
+                    "Continue",
+                    style: whiteStyle.copyWith(fontSize: 13),
+                  )),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildRecentUsers() {
+    return Container(
+      margin: const EdgeInsets.only(top: 40),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Recent Users",
+            style: blackStyle.copyWith(fontSize: 16, fontWeight: semiBold),
+          ),
+          const SizedBox(
+            height: 14,
+          ),
+          const TransferRecentUserItem(
+            imageUrl: "assets/img_friend1.png",
+            name: "Yonna Jie",
+            username: "Yoenna",
+            isVerified: true,
+          ),
+          const TransferRecentUserItem(
+            imageUrl: "assets/img_friend2.png",
+            name: "John Hi",
+            username: "jhi",
+          ),
+          const TransferRecentUserItem(
+            imageUrl: "assets/img_friend3.png",
+            name: "Masayoshi",
+            username: "form",
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildResult() {
+    return Container(
+      margin: const EdgeInsets.only(top: 40),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Result",
+            style: blackStyle.copyWith(fontSize: 16, fontWeight: semiBold),
+          ),
+          const SizedBox(
+            height: 14,
+          ),
+          const Wrap(
+            spacing: 17,
+            runSpacing: 17,
+            children: [
+              TransferResultUserItem(
+                imageUrl: "assets/img_friend1.png",
+                name: "Yonna Jie",
+                username: "yoenna",
+                isVerified: true,
+              ),
+              TransferResultUserItem(
+                imageUrl: "assets/img_friend2.png",
+                name: "Yonna Jie",
+                username: "yoenna",
+                isSelected: true,
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

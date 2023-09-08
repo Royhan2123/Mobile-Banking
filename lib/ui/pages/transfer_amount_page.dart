@@ -1,19 +1,19 @@
+
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/widgets/custom_input_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class TopUpAmountPage extends StatefulWidget {
-  const TopUpAmountPage({super.key});
+class TransferAmountPage extends StatefulWidget {
+  const TransferAmountPage({super.key});
 
   @override
-  State<TopUpAmountPage> createState() => _TopUpAmountPageState();
+  State<TransferAmountPage> createState() => _TransferAmountPageState();
 }
 
-class _TopUpAmountPageState extends State<TopUpAmountPage> {
+class _TransferAmountPageState extends State<TransferAmountPage> {
   @override
   void initState() {
     super.initState();
@@ -197,8 +197,8 @@ class _TopUpAmountPageState extends State<TopUpAmountPage> {
                     minimumSize: const Size(350, 40)),
                 onPressed: () async {
                   if (await Navigator.pushNamed(context, '/pinPage') == true) {
-                    await launchUrl(Uri.parse("https://demo.midtrans.com/"));
-                    Navigator.pushNamed(context, '/topUpSucces');
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, "/transferSuccesPage", (route) => false);
                   }
                 },
                 child: Text(
