@@ -55,7 +55,4 @@ class TransferPage extends StatelessWidget {
       ),
     );
   }
-  Widget buildRecentUsers() {
-    
-  }
 }
