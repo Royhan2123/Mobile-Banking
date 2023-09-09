@@ -19,7 +19,7 @@ class ProfilEditSuccesPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             Text(
               "Your data is safe with\nour system",
@@ -27,7 +27,7 @@ class ProfilEditSuccesPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(

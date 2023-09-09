@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
-class TransferSuccesPage extends StatefulWidget {
-  const TransferSuccesPage({super.key});
+class DataSucces extends StatefulWidget {
+  const DataSucces({super.key});
 
   @override
-  State<TransferSuccesPage> createState() => _TransferSuccesPageState();
+  State<DataSucces> createState() => _DataSuccesState();
 }
 
-class _TransferSuccesPageState extends State<TransferSuccesPage> {
+class _DataSuccesState extends State<DataSucces> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,8 +17,8 @@ class _TransferSuccesPageState extends State<TransferSuccesPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Berhasil Transfer",
-              style: blackStyle.copyWith(fontSize: 15, fontWeight: bold),
+              "Paket Data\nBerhasil Terbeli",
+              style: blackStyle.copyWith(fontSize: 17, fontWeight: semiBold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(

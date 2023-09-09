@@ -259,7 +259,13 @@ class _HomePageState extends State<HomePage> {
                   title: "Withdraw",
                   ontap: () {}),
               HomeServicesItem(
-                  iconUrl: "assets/ic_more.png", title: "More", ontap: () {}),
+                  iconUrl: "assets/ic_more.png",
+                  title: "More",
+                  ontap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => const MoreDialog());
+                  }),
             ],
           )
         ],
@@ -420,6 +426,72 @@ class _HomePageState extends State<HomePage> {
             height: 15,
           )
         ],
+      ),
+    );
+  }
+}
+
+class MoreDialog extends StatelessWidget {
+  const MoreDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      insetPadding: EdgeInsets.zero,
+      backgroundColor: Colors.transparent,
+      alignment: AlignmentDirectional.bottomCenter,
+      content: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        height: 300,
+        width: MediaQuery.sizeOf(context).width,
+        decoration: BoxDecoration(
+          color: lightBackgroundColor,
+          borderRadius: BorderRadius.circular(40),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Do More With Us",
+              style: blackStyle.copyWith(fontSize: 15, fontWeight: semiBold),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Wrap(
+              spacing: 27,
+              runSpacing: 24,
+              children: [
+                HomeServicesItem(
+                    iconUrl: "assets/ic_product_data.png",
+                    title: "Data",
+                    ontap: () {
+                      Navigator.pushNamed(context, '/dataProviderPage');
+                    }),
+                HomeServicesItem(
+                    iconUrl: "assets/ic_product_water.png",
+                    title: "Water",
+                    ontap: () {}),
+                HomeServicesItem(
+                    iconUrl: "assets/ic_product_stream.png",
+                    title: "Stream",
+                    ontap: () {}),
+                HomeServicesItem(
+                    iconUrl: "assets/ic_product_movie.png",
+                    title: "Movie",
+                    ontap: () {}),
+                HomeServicesItem(
+                    iconUrl: "assets/ic_product_food.png",
+                    title: "Food",
+                    ontap: () {}),
+                HomeServicesItem(
+                    iconUrl: "assets/ic_product_travel.png",
+                    title: "Travel",
+                    ontap: () {}),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

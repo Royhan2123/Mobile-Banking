@@ -30,7 +30,7 @@ class TransferPage extends StatelessWidget {
           centerTitle: true,
         ),
         body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           children: [
             const SizedBox(
               height: 30,
@@ -54,7 +54,7 @@ class TransferPage extends StatelessWidget {
             //  buildRecentUsers(),
             buildResult(),
             const SizedBox(
-              height: 250,
+              height: 230,
             ),
             Center(
               child: ElevatedButton(
@@ -129,8 +129,8 @@ class TransferPage extends StatelessWidget {
             height: 14,
           ),
           const Wrap(
-            spacing: 17,
-            runSpacing: 17,
+            spacing: 20,
+            runSpacing: 20,
             children: [
               TransferResultUserItem(
                 imageUrl: "assets/img_friend1.png",

@@ -22,7 +22,7 @@ class _TopUpSuccesState extends State<TopUpSucces> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             Text(
               "Use the money wisely and\ngrow your finance",
@@ -30,7 +30,7 @@ class _TopUpSuccesState extends State<TopUpSucces> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(

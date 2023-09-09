@@ -22,7 +22,7 @@ class _SignUpSuccesState extends State<SignUpSucces> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             Text(
               "Grow your finance start\nTogether with us",
@@ -30,7 +30,7 @@ class _SignUpSuccesState extends State<SignUpSucces> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
+import 'package:mobile_ebanking/ui/pages/data_packages_page.dart';
+import 'package:mobile_ebanking/ui/pages/data_provider_page.dart';
+import 'package:mobile_ebanking/ui/pages/data_succes.dart';
 import 'package:mobile_ebanking/ui/pages/home_page.dart';
 import 'package:mobile_ebanking/ui/pages/onboarding.dart';
 import 'package:mobile_ebanking/ui/pages/pin_page.dart';
@@ -56,6 +59,9 @@ class NewApp extends StatelessWidget {
         '/transferPage': (context) => const TransferPage(),
         '/transferAmountPage': (context) => const TransferAmountPage(),
         '/transferSuccesPage': (context) => const TransferSuccesPage(),
+        '/dataProviderPage': (context) => const DataProviderPage(),
+        '/dataPackagesPage': (context) => const DataPackagesPage(),
+        '/dataSucces': (context) => const DataSucces(),
       },
     );
   }
