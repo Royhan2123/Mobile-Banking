@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class PackageItem extends StatelessWidget {
   final String title;
-  final String price;
+  final int price;
   final bool iSelected;
   const PackageItem(
       {required this.price,
@@ -31,7 +32,7 @@ class PackageItem extends StatelessWidget {
             height: 10,
           ),
           Text(
-            "RP $price",
+            formatCurrency(price),
             style: greyStyle.copyWith(fontSize: 13),
           ),
         ],

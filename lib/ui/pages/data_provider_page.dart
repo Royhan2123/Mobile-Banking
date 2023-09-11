@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/widgets/data_provider_item.dart';
 
@@ -60,7 +61,7 @@ class DataProviderPage extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      "Balance: RP 180.000.000",
+                      "Balance: ${formatCurrency(180000000)}",
                       style: greyStyle.copyWith(fontSize: 12),
                     )
                   ],

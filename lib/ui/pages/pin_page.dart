@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/widgets/custom_input_button.dart';
 
@@ -17,11 +18,14 @@ class _PinPageState extends State<PinPage> {
       setState(() {
         pinController.text = pinController.text + number;
       });
-      // ignore: avoid_print
-      print(pinController.text);
     }
     if (pinController.text.length == 6) {
-      Navigator.pop(context, true);
+      if (pinController.text == '123123') {
+        Navigator.pop(context, true);
+      } else {
+        showCustomSnackbar(
+            context, "PIN yang anda masukkan salah. Silahkan coba lagi");
+      }
     }
   }
 
