@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/pages/data_packages_page.dart';
 import 'package:mobile_ebanking/ui/pages/data_provider_page.dart';
@@ -14,7 +16,6 @@ import 'package:mobile_ebanking/ui/pages/signup_profile_page.dart';
 import 'package:mobile_ebanking/ui/pages/signin_page.dart';
 import 'package:mobile_ebanking/ui/pages/signup_page.dart';
 import 'package:mobile_ebanking/ui/pages/signup_set_ktp_page.dart';
-import 'package:mobile_ebanking/ui/pages/signup_set_profil_page.dart';
 import 'package:mobile_ebanking/ui/pages/signup_succes_page.dart';
 import 'package:mobile_ebanking/ui/pages/splash_page.dart';
 import 'package:mobile_ebanking/ui/pages/topup_amount.dart';
@@ -33,36 +34,40 @@ class NewApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: lightBackgroundColor
+    return MultiBlocProvider(
+    providers: [
+        BlocProvider(create: (context)=> AuthBloc())
+    ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: lightBackgroundColor
+        ),
+        routes: {
+          '/': (context) => const SplashPage(),
+          '/onBoarding': (context) => const OnBoardingPage(),
+          '/signIn': (context) => const SignInPage(),
+          '/signUp': (context) => const SignUpPage(),
+          '/signUpProfil': (context) => const SignUpProfilePage(),
+          '/signUpSetKtp': (context) => const SignUpSetKtp(),
+          '/signUpSucces': (context) => const SignUpSucces(),
+          '/homePage': (context) => const HomePage(),
+          '/profilPage': (context) => const ProfilPage(),
+          '/pinPage': (context) => const PinPage(),
+          '/profilEditPage': (context) => const ProfilEditPage(),
+          '/profilEditPinPage': (context) => const ProfilEditPinPage(),
+          '/profilEditSuccesPage': (context) => const ProfilEditSuccesPage(),
+          '/topUpPage': (context) => const TopUpPage(),
+          '/topUpAmountPage': (context) => const TopUpAmountPage(),
+          '/topUpSucces': (context) => const TopUpSucces(),
+          '/transferPage': (context) => const TransferPage(),
+          '/transferAmountPage': (context) => const TransferAmountPage(),
+          '/transferSuccesPage': (context) => const TransferSuccesPage(),
+          '/dataProviderPage': (context) => const DataProviderPage(),
+          '/dataPackagesPage': (context) => const DataPackagesPage(),
+          '/dataSucces': (context) => const DataSucces(),
+        },
       ),
-      routes: {
-        '/': (context) => const SplashPage(),
-        '/onBoarding': (context) => const OnBoardingPage(),
-        '/signIn': (context) => const SignInPage(),
-        '/signUp': (context) => const SignUpPage(),
-        '/signUpProfil': (context) => const SignUpProfilePage(),
-        '/signUpSetProfil': (context) => const SignUpSetProfilePage(),
-        '/signUpSetKtp': (context) => const SignUpSetKtp(),
-        '/signUpSucces': (context) => const SignUpSucces(),
-        '/homePage': (context) => const HomePage(),
-        '/profilPage': (context) => const ProfilPage(),
-        '/pinPage': (context) => const PinPage(),
-        '/profilEditPage': (context) => const ProfilEditPage(),
-        '/profilEditPinPage': (context) => const ProfilEditPinPage(),
-        '/profilEditSuccesPage': (context) => const ProfilEditSuccesPage(),
-        '/topUpPage': (context) => const TopUpPage(),
-        '/topUpAmountPage': (context) => const TopUpAmountPage(),
-        '/topUpSucces': (context) => const TopUpSucces(),
-        '/transferPage': (context) => const TransferPage(),
-        '/transferAmountPage': (context) => const TransferAmountPage(),
-        '/transferSuccesPage': (context) => const TransferSuccesPage(),
-        '/dataProviderPage': (context) => const DataProviderPage(),
-        '/dataPackagesPage': (context) => const DataPackagesPage(),
-        '/dataSucces': (context) => const DataSucces(),
-      },
     );
   }
 }

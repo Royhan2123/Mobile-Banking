@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mobile_ebanking/models/signup_form_model.dart';
+import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class SignUpSetProfilePage extends StatefulWidget {
-  const SignUpSetProfilePage({super.key});
+  final SignUpFormModel data;
+  const SignUpSetProfilePage({required this.data, super.key});
 
   @override
   State<SignUpSetProfilePage> createState() => _SignUpSetProfilePageState();
@@ -11,8 +17,12 @@ class SignUpSetProfilePage extends StatefulWidget {
 
 class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
   final TextEditingController txtPin = TextEditingController(text: "");
+  XFile? selectedImage;
+
   @override
   Widget build(BuildContext context) {
+    //ignore: avoid_print
+    print(widget.data.toJson());
     return SafeArea(
       child: Scaffold(
         body: ListView(
@@ -46,18 +56,36 @@ class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
                     Center(
                       child: Column(
                         children: [
-                          Container(
-                            width: 100,
-                            height: 100,
-                            margin: const EdgeInsets.only(),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                50,
-                              ),
-                              image: const DecorationImage(
-                                  image: AssetImage("assets/img_profile.png"),
-                                  fit: BoxFit.cover),
-                              color: lightBackgroundColor,
+                          InkWell(
+                            onTap: () async {
+                              final image = await selectImage();
+                              setState(() {
+                                selectedImage = image;
+                              });
+                            },
+                            child: Container(
+                              width: 100,
+                              height: 100,
+                              margin: const EdgeInsets.only(),
+                              decoration: BoxDecoration(
+                                  color: lightBackgroundColor,
+                                  borderRadius: BorderRadius.circular(
+                                    50,
+                                  ),
+                                  image: selectedImage == null
+                                      ? null
+                                      : DecorationImage(
+                                          image: FileImage(
+                                              File(selectedImage!.path)),
+                                          fit: BoxFit.fill)),
+                              child: selectedImage != null
+                                  ? null
+                                  : Center(
+                                      child: Image.asset(
+                                        "assets/ic_upload.png",
+                                        width: 32,
+                                      ),
+                                    ),
                             ),
                           ),
                           const SizedBox(
@@ -84,6 +112,7 @@ class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
                     ),
                     TextFormField(
                       obscureText: true,
+                      controller: txtPin,
                       inputFormatters: [LengthLimitingTextInputFormatter(6)],
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
