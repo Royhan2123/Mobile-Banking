@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobile_ebanking/models/signup_form_model.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
+import 'package:mobile_ebanking/ui/pages/signup_set_ktp_page.dart';
 
 class SignUpSetProfilePage extends StatefulWidget {
   final SignUpFormModel data;
@@ -18,6 +20,13 @@ class SignUpSetProfilePage extends StatefulWidget {
 class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
   final TextEditingController txtPin = TextEditingController(text: "");
   XFile? selectedImage;
+
+  bool validate() {
+    if (txtPin.text.length != 6) {
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +86,7 @@ class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
                                       : DecorationImage(
                                           image: FileImage(
                                               File(selectedImage!.path)),
-                                          fit: BoxFit.fill)),
+                                          fit: BoxFit.cover)),
                               child: selectedImage != null
                                   ? null
                                   : Center(
@@ -132,7 +141,25 @@ class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
                               shape: const StadiumBorder(),
                               minimumSize: const Size(350, 40)),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/signUpSetKtp');
+                            if (validate()) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SignUpSetKtp(
+                                      data: widget.data.copyWith(
+                                          pin: txtPin.text,
+                                          profilePicture: selectedImage == null
+                                              ? null
+                                              : "data:image/png;base64${base64Encode(
+                                                  File(
+                                                    selectedImage!.path,
+                                                  ).readAsBytesSync(),
+                                                )},"),
+                                    ),
+                                  ));
+                            } else {
+                              showCustomSnackbar(context, "Pin Harus 6 digit");
+                            }
                           },
                           child: Text(
                             "Continue",

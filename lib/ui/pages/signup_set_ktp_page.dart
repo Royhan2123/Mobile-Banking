@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ebanking/models/signup_form_model.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class SignUpSetKtp extends StatefulWidget {
-  const SignUpSetKtp({super.key});
+  final SignUpFormModel data;
+  const SignUpSetKtp({required this.data, super.key});
 
   @override
   State<SignUpSetKtp> createState() => _SignUpSetKtpState();
