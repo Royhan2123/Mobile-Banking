@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:mobile_ebanking/models/signup_form_model.dart';
 import 'package:mobile_ebanking/services/auth_services.dart';
 
 part 'auth_event.dart';

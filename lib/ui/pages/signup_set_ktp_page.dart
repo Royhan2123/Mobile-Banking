@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_ebanking/models/signup_form_model.dart';
+import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class SignUpSetKtp extends StatefulWidget {
@@ -12,6 +16,15 @@ class SignUpSetKtp extends StatefulWidget {
 
 class _SignUpSetKtpState extends State<SignUpSetKtp> {
   final TextEditingController txtPin = TextEditingController(text: "");
+  XFile? selectedImage;
+
+  bool validate() {
+    if (selectedImage == null) {
+      return false;
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -47,22 +60,40 @@ class _SignUpSetKtpState extends State<SignUpSetKtp> {
                     Center(
                       child: Column(
                         children: [
-                          Container(
-                              width: 100,
-                              height: 100,
-                              margin: const EdgeInsets.only(),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  50,
+                          InkWell(
+                            onTap: () async {
+                              final image = await selectImage();
+                              setState(() {
+                                selectedImage = image;
+                              });
+                            },
+                            child: Container(
+                                width: 100,
+                                height: 100,
+                                margin: const EdgeInsets.only(),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    50,
+                                  ),
+                                  image: selectedImage == null
+                                      ? null
+                                      : DecorationImage(
+                                          image: FileImage(
+                                            File(selectedImage!.path),
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
+                                  color: lightBackgroundColor,
                                 ),
-                                color: lightBackgroundColor,
-                              ),
-                              child: Center(
-                                child: Image.asset(
-                                  "assets/ic_upload.png",
-                                  width: 40,
-                                ),
-                              )),
+                                child: Center(
+                                  child: selectedImage != null
+                                      ? null
+                                      : Image.asset(
+                                          "assets/ic_upload.png",
+                                          width: 40,
+                                        ),
+                                )),
+                          ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -86,7 +117,12 @@ class _SignUpSetKtpState extends State<SignUpSetKtp> {
                               shape: const StadiumBorder(),
                               minimumSize: const Size(350, 40)),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/signUpSucces');
+                            if (validate()) {
+                              Navigator.pushNamed(context, '/signUpSucces');
+                            } else {
+                              showCustomSnackbar(
+                                  context, "Tolong Masukkan Gambar");
+                            }
                           },
                           child: Text(
                             "Continue",
