@@ -26,5 +26,5 @@ class AuthLogin extends AuthEvent {
   const AuthLogin(this.data);
   @override
   List<Object> get props => [data];
-}
+} 
 

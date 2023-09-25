@@ -40,6 +40,7 @@ class AuthServices {
       rethrow;
     }
   }
+  
   Future<UserModels> login(SignInFormModel data) async {
     try {
       final res =

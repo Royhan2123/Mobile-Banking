@@ -15,8 +15,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   bool validate() {
     if (txtEmail.text.isEmpty || txtPassword.text.isEmpty) {
-      showCustomSnackbar(context, "Tolong Di isi semua field");
-      return false;
+        return false;
     }
     return true;
   }
