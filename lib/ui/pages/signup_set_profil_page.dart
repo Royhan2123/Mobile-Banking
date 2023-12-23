@@ -1,17 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mobile_ebanking/models/signup_form_model.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
-import 'package:mobile_ebanking/ui/pages/signup_set_ktp_page.dart';
 
 class SignUpSetProfilePage extends StatefulWidget {
-  final SignUpFormModel data;
-  const SignUpSetProfilePage({required this.data, super.key});
+  const SignUpSetProfilePage({super.key});
 
   @override
   State<SignUpSetProfilePage> createState() => _SignUpSetProfilePageState();
@@ -30,8 +25,6 @@ class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    //ignore: avoid_print
-    print(widget.data.toJson());
     return SafeArea(
       child: Scaffold(
         body: ListView(
@@ -140,27 +133,7 @@ class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
                               backgroundColor: purpleColor,
                               shape: const StadiumBorder(),
                               minimumSize: const Size(350, 40)),
-                          onPressed: () {
-                            if (validate()) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SignUpSetKtp(
-                                      data: widget.data.copyWith(
-                                          pin: txtPin.text,
-                                          profilePicture: selectedImage == null
-                                              ? null
-                                              : "data:image/png;base64${base64Encode(
-                                                  File(
-                                                    selectedImage!.path,
-                                                  ).readAsBytesSync(),
-                                                )},"),
-                                    ),
-                                  ));
-                            } else {
-                              showCustomSnackbar(context, "Pin Harus 6 digit");
-                            }
-                          },
+                          onPressed: () {},
                           child: Text(
                             "Continue",
                             style: whiteStyle.copyWith(fontSize: 13),

@@ -49,9 +49,6 @@ class _ProfilEditPinPageState extends State<ProfilEditPinPage> {
                   "Old PIN",
                   style: blackStyle.copyWith(fontSize: 13, fontWeight: medium),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
                 TextFormField(
                   controller: txtOldPin,
                   cursorColor: blackColor,

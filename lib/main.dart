@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/pages/data_packages_page.dart';
 import 'package:mobile_ebanking/ui/pages/data_provider_page.dart';
@@ -35,7 +34,7 @@ class NewApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
     providers: [
-        BlocProvider(create: (context)=> AuthBloc())
+      
     ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
