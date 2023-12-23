@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -15,8 +16,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController txtName = TextEditingController(text: "");
 
   bool validate() {
-    if (txtName.text.isEmpty ||
-        txtEmail.text.isEmpty ||
+    if (txtEmail.text.isEmpty ||
+        txtName.text.isEmpty ||
         txtPassword.text.isEmpty) {
       return false;
     }
@@ -134,7 +135,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           backgroundColor: purpleColor,
                           shape: const StadiumBorder(),
                           minimumSize: const Size(350, 40)),
-                      onPressed: () {},
+                      onPressed: () {
+                        if (validate()) {
+                          Navigator.pushNamed(context, "/signUpProfil");
+                        } else {
+                          showCustomSnackbar(
+                              context, "Semua field harus di isi");
+                        }
+                      },
                       child: Text(
                         "Continue",
                         style: whiteStyle.copyWith(fontSize: 13),
