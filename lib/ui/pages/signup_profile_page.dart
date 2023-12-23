@@ -1,18 +1,20 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mobile_ebanking/models/signup_model.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
-class SignUpProfilePage extends StatefulWidget {
-  const SignUpProfilePage({super.key});
+class SignUpProfilePage extends StatelessWidget {
+  final SignUpModels data;
+  SignUpProfilePage({required this.data, super.key});
 
-  @override
-  State<SignUpProfilePage> createState() => _SignUpProfilePageState();
-}
-
-class _SignUpProfilePageState extends State<SignUpProfilePage> {
   final TextEditingController txtPin = TextEditingController(text: "");
+
   @override
   Widget build(BuildContext context) {
+    
+    print(data.toJson());
     return SafeArea(
       child: Scaffold(
         body: ListView(

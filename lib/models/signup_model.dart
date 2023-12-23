@@ -10,9 +10,9 @@ class SignUpModels {
     required this.email,
     required this.name,
     required this.password,
-    required this.pin,
-    required this.ktp,
-    required this.profilePicture,
+    this.pin,
+    this.ktp,
+    this.profilePicture,
   });
 
   Map<String, dynamic> toJson() => {

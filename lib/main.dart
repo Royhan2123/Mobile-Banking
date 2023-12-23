@@ -12,7 +12,6 @@ import 'package:mobile_ebanking/ui/pages/profil_edit_pin_page.dart';
 import 'package:mobile_ebanking/ui/pages/profil_edit_succes_page.dart';
 import 'package:mobile_ebanking/ui/pages/profil_page.dart';
 import 'package:mobile_ebanking/ui/pages/profile_edit_page.dart';
-import 'package:mobile_ebanking/ui/pages/signup_profile_page.dart';
 import 'package:mobile_ebanking/ui/pages/signin_page.dart';
 import 'package:mobile_ebanking/ui/pages/signup_page.dart';
 import 'package:mobile_ebanking/ui/pages/signup_succes_page.dart';
@@ -47,7 +46,6 @@ class NewApp extends StatelessWidget {
           '/onBoarding': (context) => const OnBoardingPage(),
           '/signIn': (context) => const SignInPage(),
           '/signUp': (context) => const SignUpPage(),
-          '/signUpProfil': (context) => const SignUpProfilePage(),
           '/signUpSucces': (context) => const SignUpSucces(),
           '/homePage': (context) => const HomePage(),
           '/profilPage': (context) => const ProfilPage(),

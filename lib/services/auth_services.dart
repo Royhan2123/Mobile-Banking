@@ -1,24 +1,23 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:mobile_ebanking/shared/shared_values.dart';
 
 class AuthServices {
+  final String baseUrl = 'https://bwabank.my.id/api';
+
   Future<bool> checkEmail(String email) async {
     try {
-      final response = await http.post(
-        Uri.parse('$baseUrl/is-email-exist'),
-        body: {
-          "email": email,
-        },
+      final respone = await http.post(
+        Uri.parse("$baseUrl/is-email-exist"),
+        body: {"email": email},
       );
-      if (response.statusCode == 200) {
-        return jsonDecode(response.body)["is-email-exist"];
+      if (respone.statusCode == 200) {
+        return jsonDecode(respone.body)["is_email_exist"];
       } else {
-        return jsonDecode(response.body)["errors"];
+        return jsonDecode(respone.body)["errors"];
       }
     } catch (e) {
-      throw e.toString();
+      rethrow;
     }
   }
 }

@@ -15,11 +15,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           );
           final response = await AuthServices().checkEmail(event.email);
           if (response == false) {
-            emit(
-              AuthCheckEmailSucces(),
-            );
+            emit(AuthCheckEmailSucces());
           } else {
-            emit( const AuthFailed("Email Anda Sudah Terpakai"),);
+            emit(const AuthFailed("Email Anda Sudah Terpakai"));
           }
         } catch (e) {
           emit(

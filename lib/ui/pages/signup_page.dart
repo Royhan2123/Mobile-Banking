@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
+import 'package:mobile_ebanking/models/signup_model.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
+import 'package:mobile_ebanking/ui/pages/signup_profile_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -36,7 +38,12 @@ class _SignUpPageState extends State<SignUpPage> {
           showCustomSnackbar(context, state.error);
         }
         if (state is AuthCheckEmailSucces) {
-          Navigator.pushNamed(context, '/signUpProfil');
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpProfilePage(data: 
+          SignUpModels(
+            name: txtName.text,
+            email: txtEmail.text,
+            password: txtPassword.text,
+          ))));
         }
       },
       builder: (context, state) {
@@ -156,9 +163,9 @@ class _SignUpPageState extends State<SignUpPage> {
                               minimumSize: const Size(350, 40)),
                           onPressed: () {
                             if (validate()) {
-                              context
-                                  .read<AuthBloc>()
-                                  .add(AuthCheckEmail(txtEmail.text),);
+                              context.read<AuthBloc>().add(
+                                    AuthCheckEmail(txtEmail.text),
+                                  );
                             }
                           },
                           child: Text(
