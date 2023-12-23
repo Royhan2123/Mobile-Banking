@@ -9,8 +9,9 @@ sealed class AuthEvent extends Equatable {
 
 class AuthCheckEmail extends AuthEvent {
   final String email;
-  
+
   const AuthCheckEmail(this.email);
+
   @override
   List<Object> get props => [email];
 }
