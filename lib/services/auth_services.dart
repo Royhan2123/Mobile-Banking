@@ -7,15 +7,15 @@ class AuthServices {
   Future<bool> checkEmail(String email) async {
     try {
       final response = await http.post(
-        Uri.parse("$baseUrl/is-email-exist"),
+        Uri.parse('$baseUrl/is-email-exist'),
         body: {
-          'email': email,
+          "email": email,
         },
       );
       if (response.statusCode == 200) {
         return jsonDecode(response.body)["is-email-exist"];
       } else {
-        return jsonDecode(response.body)["error"];
+        return jsonDecode(response.body)["errors"];
       }
     } catch (e) {
       throw e.toString();
