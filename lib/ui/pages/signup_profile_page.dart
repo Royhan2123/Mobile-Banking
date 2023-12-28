@@ -1,20 +1,48 @@
 // ignore_for_file: avoid_print
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_ebanking/models/signup_model.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
+import 'package:mobile_ebanking/ui/pages/signup_set_ktp_page.dart';
 
-class SignUpProfilePage extends StatelessWidget {
+class SignUpProfilePage extends StatefulWidget {
   final SignUpModels data;
-  SignUpProfilePage({required this.data, super.key});
+  const SignUpProfilePage({required this.data, super.key});
 
+  @override
+  State<SignUpProfilePage> createState() => _SignUpProfilePageState();
+}
+
+class _SignUpProfilePageState extends State<SignUpProfilePage> {
   final TextEditingController txtPin = TextEditingController(text: "");
+  XFile? selectedImage;
+
+  selectImage() async {
+    final imagePicker = ImagePicker();
+    final XFile? image =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        selectedImage = image;
+      });
+    }
+  }
+
+  bool validate() {
+    if (txtPin.text.length != 6) {
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
-    
-    print(data.toJson());
     return SafeArea(
       child: Scaffold(
         body: ListView(
@@ -48,7 +76,13 @@ class SignUpProfilePage extends StatelessWidget {
                     Center(
                       child: Column(
                         children: [
-                          Container(
+                          InkWell(
+                            onTap: () async {
+                              setState(() {
+                                selectImage();
+                              });
+                            },
+                            child: Container(
                               width: 100,
                               height: 100,
                               margin: const EdgeInsets.only(),
@@ -56,14 +90,27 @@ class SignUpProfilePage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(
                                   50,
                                 ),
-                                color: lightBackgroundColor,
+                                image: selectedImage == null
+                                    ? null
+                                    : DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: FileImage(
+                                          File(
+                                            selectedImage!.path,
+                                          ),
+                                        ),
+                                      ),
                               ),
-                              child: Center(
-                                child: Image.asset(
-                                  "assets/ic_upload.png",
-                                  width: 40,
-                                ),
-                              )),
+                              child: selectedImage != null
+                                  ? null
+                                  : Center(
+                                      child: Image.asset(
+                                        'assets/ic_upload.png',
+                                        width: 32,
+                                      ),
+                                    ),
+                            ),
+                          ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -87,6 +134,7 @@ class SignUpProfilePage extends StatelessWidget {
                       height: 10,
                     ),
                     TextFormField(
+                      controller: txtPin,
                       obscureText: true,
                       inputFormatters: [LengthLimitingTextInputFormatter(6)],
                       keyboardType: TextInputType.phone,
@@ -107,7 +155,34 @@ class SignUpProfilePage extends StatelessWidget {
                               shape: const StadiumBorder(),
                               minimumSize: const Size(350, 40)),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/signUpSetProfil');
+                            if (txtPin.text.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: const Text(
+                                    'Field PIN harus diisi',
+                                  ),
+                                  backgroundColor: redColor,
+                                ),
+                              );
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignUpSetKtp(
+                                    data: widget.data.copyWith(
+                                      profilePicture: selectedImage == null
+                                          ? null
+                                          // ignore: prefer_interpolation_to_compose_strings
+                                          : 'data:image/png;base64,' +
+                                              base64Encode(
+                                                  File(selectedImage!.path)
+                                                      .readAsBytesSync()),
+                                      pin: txtPin.text,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
                           },
                           child: Text(
                             "Continue",

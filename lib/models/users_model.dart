@@ -2,46 +2,46 @@ class UserModels {
   final int? id;
   final String? name;
   final String? email;
-  final String? username;
+  final String? userName;
   final int? verified;
   final String? profilePicture;
-  final int? balance;
   final String? cardNumber;
-  final int? pin;
+  final int? balance;
+  final String? pin;
   final String? password;
   final String? token;
 
-  UserModels({
+  const UserModels({
+    this.email,
     this.id,
     this.name,
-    this.email,
-    this.username,
+    this.userName,
     this.verified,
     this.profilePicture,
-    this.password,
     this.balance,
     this.cardNumber,
     this.pin,
     this.token,
+    this.password
   });
 
-  // mengambil data dari json
   factory UserModels.fromJson(Map<String, dynamic> json) => UserModels(
-        id: json["id"],
         name: json["name"],
+        id: json["id"],
         email: json["email"],
-        username: json["username"],
+        userName: json["userName"],
         verified: json["verified"],
-        profilePicture: json["profile_picture"],
-        balance: json["balance"],
-        cardNumber: json["card_number"],
+        profilePicture: json["profilePicture"],
         pin: json["pin"],
+        balance: json["balance"],
+        cardNumber: json["cardNumber"],
         token: json["token"],
+        password: json["password"],
       );
 
-  UserModels copwith({
-    String? username,
+  UserModels copyWith({
     String? name,
+    String? userName,
     String? email,
     String? pin,
     String? password,
@@ -49,14 +49,15 @@ class UserModels {
   }) =>
       UserModels(
         id: id,
-        username: username ?? this.username,
-        email: email ?? this.email,
-        name: name ?? this.name,
-        password: password ?? this.password ,
-        balance: balance ?? this.balance ,
+        cardNumber: cardNumber,
         verified: verified,
         profilePicture: profilePicture,
-        cardNumber: cardNumber,
         token: token,
+        email: email ?? this.email,
+        name: name ?? this.name,
+        userName: userName ?? this.userName,
+        pin: pin ?? this.pin,
+        password: password ?? this.password,
+        balance: balance ?? this.balance,
       );
 }

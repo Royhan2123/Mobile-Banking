@@ -16,24 +16,24 @@ class SignUpModels {
   });
 
   Map<String, dynamic> toJson() => {
-        "name": name,
         "email": email,
+        "name": name,
         "password": password,
         "pin": pin,
         "ktp": ktp,
         "profilePicture": profilePicture,
       };
-
   SignUpModels copyWith({
     String? pin,
     String? ktp,
     String? profilePicture,
   }) =>
       SignUpModels(
-          email: email,
-          name: name,
-          password: password,
-          pin: pin ?? this.pin,
-          ktp: ktp ?? this.ktp,
-          profilePicture: profilePicture ?? this.profilePicture);
+        email: email,
+        name: name,
+        password: password,
+        pin: pin ?? this.pin,
+        ktp: ktp ?? this.ktp,
+        profilePicture: profilePicture ?? this.profilePicture,
+      );
 }

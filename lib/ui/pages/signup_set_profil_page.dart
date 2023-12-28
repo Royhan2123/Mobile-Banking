@@ -1,8 +1,4 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class SignUpSetProfilePage extends StatefulWidget {
@@ -14,14 +10,6 @@ class SignUpSetProfilePage extends StatefulWidget {
 
 class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
   final TextEditingController txtPin = TextEditingController(text: "");
-  XFile? selectedImage;
-
-  bool validate() {
-    if (txtPin.text.length != 6) {
-      return false;
-    }
-    return true;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +47,7 @@ class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
                       child: Column(
                         children: [
                           InkWell(
-                            onTap: () async {
-                              final image = await selectImage();
-                              setState(() {
-                                selectedImage = image;
-                              });
-                            },
+                            onTap: () {},
                             child: Container(
                               width: 100,
                               height: 100,
@@ -74,20 +57,14 @@ class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
                                   borderRadius: BorderRadius.circular(
                                     50,
                                   ),
-                                  image: selectedImage == null
-                                      ? null
-                                      : DecorationImage(
-                                          image: FileImage(
-                                              File(selectedImage!.path)),
-                                          fit: BoxFit.cover)),
-                              child: selectedImage != null
-                                  ? null
-                                  : Center(
-                                      child: Image.asset(
-                                        "assets/ic_upload.png",
-                                        width: 32,
-                                      ),
-                                    ),
+                                  image: const DecorationImage(
+                                      image: AssetImage(""))),
+                              child: Center(
+                                child: Image.asset(
+                                  "assets/ic_upload.png",
+                                  width: 32,
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -115,29 +92,31 @@ class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
                     TextFormField(
                       obscureText: true,
                       controller: txtPin,
-                      inputFormatters: [LengthLimitingTextInputFormatter(6)],
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          contentPadding: const EdgeInsets.all(10)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        contentPadding: const EdgeInsets.all(10),
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     Center(
                       child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.blue,
-                              shadowColor: Colors.black,
-                              backgroundColor: purpleColor,
-                              shape: const StadiumBorder(),
-                              minimumSize: const Size(350, 40)),
-                          onPressed: () {},
-                          child: Text(
-                            "Continue",
-                            style: whiteStyle.copyWith(fontSize: 13),
-                          )),
+                        style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.blue,
+                            shadowColor: Colors.black,
+                            backgroundColor: purpleColor,
+                            shape: const StadiumBorder(),
+                            minimumSize: const Size(350, 40)),
+                        onPressed: () {},
+                        child: Text(
+                          "Continue",
+                          style: whiteStyle.copyWith(fontSize: 13),
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 10,
