@@ -193,7 +193,13 @@ class _SignUpSetKtpState extends State<SignUpSetKtp> {
                 ),
                 Center(
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<AuthBloc>().add(
+                            AuthRegister(
+                              widget.data,
+                            ),
+                          );
+                    },
                     child: Text(
                       "Skip for now",
                       style:
