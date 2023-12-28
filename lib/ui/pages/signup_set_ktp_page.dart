@@ -99,9 +99,8 @@ class _SignUpSetKtpState extends State<SignUpSetKtp> {
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  final image = await selectImage();
                                   setState(() {
-                                    selectedImage = image;
+                                    selectImage();
                                   });
                                 },
                                 child: Container(
@@ -155,25 +154,25 @@ class _SignUpSetKtpState extends State<SignUpSetKtp> {
                                 shape: const StadiumBorder(),
                                 minimumSize: const Size(350, 40)),
                             onPressed: () {
-                              if (validate()) {
-                                context.read<AuthBloc>().add(
-                                      AuthRegister(
-                                        widget.data.copyWith(
-                                          ktp: selectedImage == null
-                                              ? null
-                                              // ignore: prefer_interpolation_to_compose_strings
-                                              : 'data:image/png;base64,' +
-                                                  base64Encode(
-                                                    File(selectedImage!.path)
-                                                        .readAsBytesSync(),
-                                                  ),
-                                        ),
-                                      ),
-                                    );
-                              } else {
-                                showCustomSnackbar(
-                                    context, "Gambar tidak boleh kosong");
-                              }
+                              if (selectedImage == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text(
+                                'Gambar tidak boleh kosong',
+                              ),
+                              backgroundColor: redColor,
+                            ),
+                          );
+                        } else {
+                          context.read<AuthBloc>().add(
+                                AuthRegister(
+                                  widget.data.copyWith(
+                                    ktp: 'data:image/png;base64,${base64Encode(File(selectedImage!.path)
+                                            .readAsBytesSync())}',
+                                  ),
+                                ),
+                              );
+                        }
                             },
                             child: Text(
                               "Continue",
