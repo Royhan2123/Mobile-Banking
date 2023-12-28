@@ -15,6 +15,7 @@ class SignUpModels {
     this.profilePicture,
   });
 
+  // mengambil data dari project ke dalam json API.
   Map<String, dynamic> toJson() => {
         "email": email,
         "name": name,

@@ -25,6 +25,7 @@ class UserModels {
     this.password
   });
 
+  // mengambil data dari json ke dalam project.
   factory UserModels.fromJson(Map<String, dynamic> json) => UserModels(
         name: json["name"],
         id: json["id"],
