@@ -32,3 +32,5 @@ class AuthLogin extends AuthEvent {
   List<Object> get props => [data];
 }
 
+class AuthGetCurrentUser extends AuthEvent {}
+

@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_ebanking/models/signin_model.dart';
 import 'package:mobile_ebanking/models/signup_model.dart';
@@ -25,13 +25,13 @@ class AuthServices {
   Future<UserModels> register(SignUpModels data) async {
     try {
       final response =
-          await http.post(Uri.parse("$baseUrl/register"), 
-          body: data.toJson());
+          await http.post(Uri.parse("$baseUrl/register"), body: data.toJson());
       if (response.statusCode == 200) {
         UserModels user = UserModels.fromJson(
           jsonDecode(response.body),
         );
         user = user.copyWith(password: data.password);
+        await storeCredentialToLocal(user);
         return user;
       } else {
         throw jsonDecode(response.body)["mesage"];
@@ -44,13 +44,13 @@ class AuthServices {
   Future<UserModels> login(SignInModels data) async {
     try {
       final response =
-          await http.post(Uri.parse("$baseUrl/login"), 
-          body: data.toJson());
+          await http.post(Uri.parse("$baseUrl/login"), body: data.toJson());
       if (response.statusCode == 200) {
         UserModels user = UserModels.fromJson(
           jsonDecode(response.body),
         );
         user = user.copyWith(password: data.password);
+        await storeCredentialToLocal(user);
         return user;
       } else {
         throw jsonDecode(response.body)["mesage"];
@@ -58,5 +58,49 @@ class AuthServices {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<void> storeCredentialToLocal(UserModels user) async {
+    try {
+      const storage = FlutterSecureStorage();
+      await storage.write(key: "token", value: user.token);
+      await storage.write(key: "email", value: user.email);
+      await storage.write(key: "password", value: user.password);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<SignInModels> getCredentialFromLocal() async {
+    try {
+      const storage = FlutterSecureStorage();
+      Map<String, String> values = await storage.readAll();
+      if (values["email"] == null || values["password"] == null) {
+        throw "authenticated";
+      } else {
+        final SignInModels data = SignInModels(
+          email: values["email"],
+          password: values["password"],
+        );
+        return data;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> getToken() async {
+    String token = "";
+    const storage = FlutterSecureStorage();
+    String? value = await storage.read(key: "token");
+    if (value != null) {
+      token = "Bearer$value";
+    }
+    return token;
+  }
+
+  Future<void> clearLocalStorage() async {
+    const storage = FlutterSecureStorage();
+    await storage.deleteAll();
   }
 }
