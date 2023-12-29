@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/widgets/custom_input_button.dart';
@@ -11,16 +15,33 @@ class PinPage extends StatefulWidget {
 }
 
 class _PinPageState extends State<PinPage> {
+  String pin = "";
+  bool isError = false;
+  @override
+  void initState() {
+    super.initState();
+    final authstate = context.read<AuthBloc>().state;
+
+    if (authstate is AuthSucces) {
+      pin = authstate.user.pin!;
+    } else {
+      setState(() {
+        isError = true;
+      });
+    }
+  }
+
   final TextEditingController pinController = TextEditingController(text: '');
 
   addPin(String number) {
     if (pinController.text.length < 6) {
       setState(() {
+        isError = false;
         pinController.text = pinController.text + number;
       });
     }
     if (pinController.text.length == 6) {
-      if (pinController.text == '123123') {
+      if (pinController.text == pin) {
         Navigator.pop(context, true);
       } else {
         showCustomSnackbar(
@@ -32,6 +53,7 @@ class _PinPageState extends State<PinPage> {
   deletePin() {
     if (pinController.text.isNotEmpty) {
       setState(() {
+        isError = false;
         pinController.text =
             pinController.text.substring(0, pinController.text.length - 1);
       });
@@ -63,7 +85,10 @@ class _PinPageState extends State<PinPage> {
                 child: TextFormField(
                   controller: pinController,
                   style: whiteStyle.copyWith(
-                      fontSize: 25, fontWeight: medium, letterSpacing: 15),
+                      fontSize: 25,
+                      fontWeight: medium,
+                      letterSpacing: 15,
+                      color: isError ? redColor : whiteColor),
                   cursorColor: greyColor,
                   keyboardType: TextInputType.number,
                   obscureText: true,
