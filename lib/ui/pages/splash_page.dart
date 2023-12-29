@@ -9,33 +9,31 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkBackgroundColor,
-      body: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is AuthSucces) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, "/homePage", (route) => false);
-          }
-          if (state is AuthFailed) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, "/onBoarding", (route) => false);
-          }
-        },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Container(
-                width: 155,
-                height: 50,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/img_logo_dark.png"))),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+        backgroundColor: darkBackgroundColor,
+        body: BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthSucces) {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "homePage", (route) => false);
+            }else if (state is AuthFailed){
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "onBoarding", (route) => false);
+            }
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Container(
+                  width: 155,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/img_logo_dark.png"))),
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }

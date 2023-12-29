@@ -60,6 +60,7 @@ class AuthServices {
     }
   }
 
+  // untuk store credential ke dalam local 
   Future<void> storeCredentialToLocal(UserModels user) async {
     try {
       const storage = FlutterSecureStorage();
@@ -71,16 +72,17 @@ class AuthServices {
     }
   }
 
+  // untuk mengambil credential dari local
   Future<SignInModels> getCredentialFromLocal() async {
     try {
       const storage = FlutterSecureStorage();
-      Map<String, String> values = await storage.readAll();
-      if (values["email"] == null || values["password"] == null) {
+      Map<String, String> value = await storage.readAll();
+      if (value["email"] == null || value["password"] == null) {
         throw "authenticated";
       } else {
         final SignInModels data = SignInModels(
-          email: values["email"],
-          password: values["password"],
+          email: value["email"],
+          password: value["password"],
         );
         return data;
       }
@@ -89,16 +91,20 @@ class AuthServices {
     }
   }
 
+  // untuk mendapatkan token barier
   Future<String> getToken() async {
     String token = "";
+
     const storage = FlutterSecureStorage();
     String? value = await storage.read(key: "token");
+
     if (value != null) {
-      token = "Bearer$value";
+      token = "barier$value";
     }
     return token;
   }
 
+  // untuk menghapus simpanan login ataupun register
   Future<void> clearLocalStorage() async {
     const storage = FlutterSecureStorage();
     await storage.deleteAll();
