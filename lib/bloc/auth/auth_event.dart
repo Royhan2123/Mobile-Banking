@@ -14,23 +14,19 @@ class AuthCheckEmail extends AuthEvent {
   @override
   List<Object> get props => [email];
 }
-
 class AuthRegister extends AuthEvent {
-  final SignUpModels data;
+  final SignUpModels user;
 
-  const AuthRegister(this.data);
-
+  const AuthRegister(this.user);
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [user];
 }
 class AuthLogin extends AuthEvent {
-  final SignInModels data;
+  final SignInModels user;
 
-  const AuthLogin(this.data);
-
+  const AuthLogin(this.user);
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [user];
 }
 
-class AuthGetCurrentUser extends AuthEvent {}
-
+class AuthGetCurrentUser extends AuthEvent{}

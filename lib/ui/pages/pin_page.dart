@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
@@ -20,6 +18,7 @@ class _PinPageState extends State<PinPage> {
   @override
   void initState() {
     super.initState();
+    
     final authstate = context.read<AuthBloc>().state;
 
     if (authstate is AuthSucces) {

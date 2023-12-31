@@ -35,13 +35,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             );
           }
         }
-
         if (event is AuthRegister) {
           try {
             emit(
               AuthLoading(),
             );
-            final user = await AuthServices().register(event.data);
+            UserModels user = await AuthServices().register(event.user);
             emit(
               AuthSucces(user),
             );
@@ -53,13 +52,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             );
           }
         }
-
         if (event is AuthLogin) {
           try {
             emit(
               AuthLoading(),
             );
-            final user = await AuthServices().login(event.data);
+            UserModels user = await AuthServices().login(event.user);
             emit(
               AuthSucces(user),
             );
@@ -71,7 +69,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             );
           }
         }
-
         if (event is AuthGetCurrentUser) {
           try {
             emit(
@@ -85,9 +82,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             );
           } catch (e) {
             emit(
-              AuthFailed(
-                e.toString(),
-              ),
+              AuthLoading(),
             );
           }
         }
