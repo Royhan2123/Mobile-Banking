@@ -24,7 +24,7 @@ class _PinPageState extends State<PinPage> {
     if (authstate is AuthSucces) {
       pin = authstate.user.pin!;
     } else {
-      setState(() {
+      setState(() { 
         isError = true;
       });
     }
