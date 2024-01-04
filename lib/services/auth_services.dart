@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -34,7 +36,7 @@ class AuthServices {
         await storeCredentialToLocal(user);
         return user;
       } else {
-        throw jsonDecode(response.body)["mesage"];
+        throw jsonDecode(response.body)["message"];
       }
     } catch (e) {
       rethrow;
@@ -49,18 +51,19 @@ class AuthServices {
         UserModels user = UserModels.fromJson(
           jsonDecode(response.body),
         );
+        print(response.body);
         user = user.copyWith(password: data.password);
         await storeCredentialToLocal(user);
         return user;
       } else {
-        throw jsonDecode(response.body)["mesage"];
+        throw jsonDecode(response.body)["message"];
       }
     } catch (e) {
       rethrow;
     }
   }
 
-  // untuk store credential ke dalam local 
+  // untuk store credential ke dalam local
   Future<void> storeCredentialToLocal(UserModels user) async {
     try {
       const storage = FlutterSecureStorage();

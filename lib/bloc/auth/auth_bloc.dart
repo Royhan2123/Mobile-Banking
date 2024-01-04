@@ -13,79 +13,59 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthEvent>(
       (event, emit) async {
         if (event is AuthCheckEmail) {
-          try {
-            emit(
-              AuthLoading(),
-            );
-            final response = await AuthServices().checkEmail(event.email);
-            if (response == false) {
-              emit(
-                AuthCheckEmailSucces(),
-              );
-            } else {
-              emit(
-                const AuthFailed("Email Anda Sudah Di Gunakan"),
-              );
-            }
-          } catch (e) {
-            emit(
-              AuthFailed(
-                e.toString(),
-              ),
-            );
+        try {
+          emit(AuthLoading());
+
+          final res = await AuthServices().checkEmail(event.email);
+          if (res == false) {
+            emit(AuthCheckEmailSucces());
+          } else {
+            emit(const AuthFailed('email sudah dipakai'));
           }
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
         }
-        if (event is AuthRegister) {
-          try {
-            emit(
-              AuthLoading(),
-            );
-            UserModels user = await AuthServices().register(event.user);
-            emit(
-              AuthSucces(user),
-            );
-          } catch (e) {
-            emit(
-              AuthFailed(
-                e.toString(),
-              ),
-            );
-          }
+      }
+
+      if (event is AuthRegister) {
+        try {
+
+          emit(AuthLoading());
+
+          final res = await AuthServices().register(event.user);
+
+          emit(AuthSucces(res));
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
         }
-        if (event is AuthLogin) {
-          try {
-            emit(
-              AuthLoading(),
-            );
-            UserModels user = await AuthServices().login(event.user);
-            emit(
-              AuthSucces(user),
-            );
-          } catch (e) {
-            emit(
-              AuthFailed(
-                e.toString(),
-              ),
-            );
-          }
+      }
+
+      if (event is AuthLogin) {
+        try {
+          emit(AuthLoading());
+
+          final res = await AuthServices().login(event.user);
+
+          emit(AuthSucces(res));
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
         }
-        if (event is AuthGetCurrentUser) {
-          try {
-            emit(
-              AuthLoading(),
-            );
-            final SignInModels data =
-                await AuthServices().getCredentialFromLocal();
-            final UserModels user = await AuthServices().login(data);
-            emit(
-              AuthSucces(user),
-            );
-          } catch (e) {
-            emit(
-              AuthLoading(),
-            );
-          }
+      }
+
+      if (event is AuthGetCurrentUser) {
+        try {
+          emit(AuthLoading());
+
+          final SignInModels res =
+              await AuthServices().getCredentialFromLocal();
+
+          final UserModels user = await AuthServices().login(res);
+
+          emit(AuthSucces(user));
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
         }
+      }
       },
     );
   }
