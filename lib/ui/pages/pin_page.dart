@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/widgets/custom_input_button.dart';
@@ -13,22 +11,8 @@ class PinPage extends StatefulWidget {
 }
 
 class _PinPageState extends State<PinPage> {
-  String pin = "";
   bool isError = false;
-  @override
-  void initState() {
-    super.initState();
-    
-    final authstate = context.read<AuthBloc>().state;
 
-    if (authstate is AuthSucces) {
-      pin = authstate.user.pin!;
-    } else {
-      setState(() { 
-        isError = true;
-      });
-    }
-  }
 
   final TextEditingController pinController = TextEditingController(text: '');
 
@@ -40,7 +24,7 @@ class _PinPageState extends State<PinPage> {
       });
     }
     if (pinController.text.length == 6) {
-      if (pinController.text == pin) {
+      if (pinController.text == "123123") {
         Navigator.pop(context, true);
       } else {
         showCustomSnackbar(
