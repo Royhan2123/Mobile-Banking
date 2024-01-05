@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class ProfilEditPage extends StatefulWidget {
@@ -9,6 +11,19 @@ class ProfilEditPage extends StatefulWidget {
 }
 
 class _ProfilEditPageState extends State<ProfilEditPage> {
+  @override
+  void initState() {
+    super.initState();
+    final auth = context.read<AuthBloc>().state;
+
+    if (auth is AuthSucces) {
+      txtUserName.text = auth.user.userName!;
+      txtFullName.text = auth.user.name!;
+      txtEmail.text = auth.user.email!;
+      txtEmail.text = auth.user.password!;
+    }
+  }
+
   final TextEditingController txtUserName = TextEditingController(text: "");
   final TextEditingController txtFullName = TextEditingController(text: "");
   final TextEditingController txtEmail = TextEditingController(text: "");
