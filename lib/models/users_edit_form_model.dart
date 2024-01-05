@@ -5,10 +5,10 @@ class UserEditFormModel {
   final String? password;
 
   const UserEditFormModel({
-    this.email,
-    this.name,
-    this.username,
-    this.password,
+     this.email,
+     this.name,
+     this.username,
+     this.password,
   });
 
   Map<String, dynamic> toJson() {

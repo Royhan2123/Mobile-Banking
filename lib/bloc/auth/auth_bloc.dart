@@ -70,16 +70,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (event is AuthUpdateUser) {
           try {
             if (state is AuthSucces) {
-              emit(
-                AuthLoading(),
-              );
-              await UserServices().updateUser(event.data);
               final updateUser = (state as AuthSucces).user.copyWith(
                     userName: event.data.username,
                     name: event.data.name,
                     email: event.data.email,
                     password: event.data.password,
                   );
+              emit(
+                AuthLoading(),
+              );
+              await UserServices().updateUser(event.data);
+              
               emit(
                 AuthSucces(updateUser),
               );
