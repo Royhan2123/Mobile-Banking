@@ -17,6 +17,8 @@ class UserServices {
       if (response.statusCode != 200) {
         throw jsonDecode(response.body)["message"];
       }
-    } catch (e) {}
+    } catch (e) {
+      rethrow;
+    }
   }
 }
