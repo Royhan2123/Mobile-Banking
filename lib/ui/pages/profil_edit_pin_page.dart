@@ -127,21 +127,22 @@ class _ProfilEditPinPageState extends State<ProfilEditPinPage> {
                     ),
                     Center(
                       child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              animationDuration: const Duration(seconds: 2),
-                              shape: const StadiumBorder(),
-                              minimumSize: const Size(300, 45),
-                              foregroundColor: blueColor,
-                              backgroundColor: purpleColor),
-                          onPressed: () {
-                            context.read<AuthBloc>().add(
-                                  AuthUpdatePin(txtOldPin.text, txtNewPin.text),
-                                );
-                          },
-                          child: Text(
-                            "Update Now",
-                            style: whiteStyle.copyWith(fontSize: 13),
-                          )),
+                        style: ElevatedButton.styleFrom(
+                            animationDuration: const Duration(seconds: 2),
+                            shape: const StadiumBorder(),
+                            minimumSize: const Size(300, 45),
+                            foregroundColor: blueColor,
+                            backgroundColor: purpleColor),
+                        onPressed: () {
+                          context.read<AuthBloc>().add(
+                                AuthUpdatePin(txtOldPin.text, txtNewPin.text),
+                              );
+                        },
+                        child: Text(
+                          "Update Now",
+                          style: whiteStyle.copyWith(fontSize: 13),
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 15,

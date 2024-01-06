@@ -50,3 +50,5 @@ class AuthUpdatePin extends AuthEvent {
   @override
   List<Object> get props => [oldPin, newPin];
 }
+
+class AuthLogout extends AuthEvent {}
