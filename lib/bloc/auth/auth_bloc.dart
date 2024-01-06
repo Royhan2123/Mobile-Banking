@@ -6,6 +6,7 @@ import 'package:mobile_ebanking/models/users_edit_form_model.dart';
 import 'package:mobile_ebanking/models/users_model.dart';
 import 'package:mobile_ebanking/services/auth_services.dart';
 import 'package:mobile_ebanking/services/user_services.dart';
+import 'package:mobile_ebanking/services/wallet_services.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -80,7 +81,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 AuthLoading(),
               );
               await UserServices().updateUser(event.data);
-              
+
               emit(
                 AuthSucces(updateUser),
               );
@@ -91,7 +92,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 e.toString(),
               ),
             );
-          } 
+          }
+        }
+        if (event is AuthUpdatePin) {
+          try {
+            if (state is AuthSucces) {
+              final updateUser = (state as AuthSucces).user.copyWith(
+                    pin: event.newPin,
+                  );
+              emit(
+                AuthLoading(),
+              );
+              await WalletSercives().updatePin(event.oldPin, event.newPin);
+              emit(
+                AuthSucces(updateUser),
+              );
+            }
+          } catch (e) {
+            emit(
+              AuthFailed(
+                e.toString(),
+              ),
+            );
+          }
         }
       },
     );
