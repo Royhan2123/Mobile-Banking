@@ -13,6 +13,13 @@ class ProfilEditPage extends StatefulWidget {
 }
 
 class _ProfilEditPageState extends State<ProfilEditPage> {
+
+
+  final TextEditingController txtUserName = TextEditingController(text: "");
+  final TextEditingController txtFullName = TextEditingController(text: "");
+  final TextEditingController txtEmail = TextEditingController(text: "");
+  final TextEditingController txtPassword = TextEditingController(text: "");
+
   @override
   void initState() {
     super.initState();
@@ -20,16 +27,12 @@ class _ProfilEditPageState extends State<ProfilEditPage> {
 
     if (auth is AuthSucces) {
         txtUserName.text = auth.user.userName!;
-        txtFullName.text = auth.user.userName!;
+        txtFullName.text = auth.user.name!;
         txtEmail.text = auth.user.email!;
         txtPassword.text = auth.user.password!;
     }
   }
 
-  final TextEditingController txtUserName = TextEditingController(text: "");
-  final TextEditingController txtFullName = TextEditingController(text: "");
-  final TextEditingController txtEmail = TextEditingController(text: "");
-  final TextEditingController txtPassword = TextEditingController(text: "");
   bool obsucureText = true;
   @override
   Widget build(BuildContext context) {

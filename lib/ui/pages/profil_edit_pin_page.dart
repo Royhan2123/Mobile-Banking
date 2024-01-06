@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
 
 import '../../shared/theme.dart';
 
@@ -12,6 +12,14 @@ class ProfilEditPinPage extends StatefulWidget {
 class _ProfilEditPinPageState extends State<ProfilEditPinPage> {
   final TextEditingController txtOldPin = TextEditingController(text: "");
   final TextEditingController txtNewPin = TextEditingController(text: "");
+
+  bool validate() {
+    if (txtOldPin.text.isEmpty || txtNewPin.text.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,7 +60,7 @@ class _ProfilEditPinPageState extends State<ProfilEditPinPage> {
                 TextFormField(
                   controller: txtOldPin,
                   cursorColor: blackColor,
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: greyColor),
@@ -78,7 +86,7 @@ class _ProfilEditPinPageState extends State<ProfilEditPinPage> {
                 TextFormField(
                   controller: txtNewPin,
                   cursorColor: blackColor,
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: greyColor),
@@ -102,7 +110,9 @@ class _ProfilEditPinPageState extends State<ProfilEditPinPage> {
                           minimumSize: const Size(300, 45),
                           foregroundColor: blueColor,
                           backgroundColor: purpleColor),
-                      onPressed: () {},
+                      onPressed: () {
+                        
+                      },
                       child: Text(
                         "Update Now",
                         style: whiteStyle.copyWith(fontSize: 13),
