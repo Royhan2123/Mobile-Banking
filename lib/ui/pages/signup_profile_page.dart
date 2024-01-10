@@ -54,7 +54,7 @@ class _SignUpProfilePageState extends State<SignUpProfilePage> {
               margin: const EdgeInsets.only(top: 60, bottom: 80),
               decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/img_logo_light.png"))),
+                      image: AssetImage("assets/img_logo_light.png"),),),
             ),
             Text(
               "Join Us to Unlock\nYour Growth",

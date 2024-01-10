@@ -6,6 +6,7 @@ import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/pages/profil_menu_item.dart';
+import 'package:mobile_ebanking/ui/pages/profile_edit_page.dart';
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
@@ -81,20 +82,22 @@ class _ProfilPageState extends State<ProfilPage> {
                                     image: DecorationImage(
                                       image: state.user.profilePicture == null
                                           ? const AssetImage(
-                                              "assets/img_profile.png",
+                                              'assets/img_profile.png',
                                             )
                                           : NetworkImage(
                                                   state.user.profilePicture!)
                                               as ImageProvider,
                                     ),
                                   ),
-                                  child: Align(
-                                    alignment: Alignment.topRight,
-                                    child: Image.asset(
-                                      "assets/ic_check.png",
-                                      width: 22,
-                                    ),
-                                  ),
+                                  child: state.user.verified == 1
+                                      ? Align(
+                                          alignment: Alignment.topRight,
+                                          child: Image.asset(
+                                            "assets/ic_check.png",
+                                            width: 22,
+                                          ),
+                                        )
+                                      : null,
                                 ),
                                 const SizedBox(
                                   height: 10,
@@ -117,7 +120,13 @@ class _ProfilPageState extends State<ProfilPage> {
                               if (await Navigator.pushNamed(
                                       context, '/pinPage') ==
                                   true) {
-                                Navigator.pushNamed(context, '/profilEditPage');
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProfilEditPage(user: state.user),
+                                    ),
+                                    (route) => false);
                               }
                             },
                           ),
@@ -164,7 +173,11 @@ class _ProfilPageState extends State<ProfilPage> {
                 ],
               );
             }
-            return const SizedBox();
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.red,
+              ),
+            );
           },
         ),
       ),

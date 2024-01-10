@@ -5,7 +5,6 @@ import 'package:mobile_ebanking/models/signup_model.dart';
 import 'package:mobile_ebanking/models/users_edit_form_model.dart';
 import 'package:mobile_ebanking/models/users_model.dart';
 import 'package:mobile_ebanking/services/auth_services.dart';
-import 'package:mobile_ebanking/services/user_services.dart';
 import 'package:mobile_ebanking/services/wallet_services.dart';
 
 part 'auth_event.dart';
@@ -69,31 +68,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           }
         }
         if (event is AuthUpdateUser) {
-          try {
-            if (state is AuthSucces) {
-              final updateUser = (state as AuthSucces).user.copyWith(
-                    userName: event.data.username,
-                    name: event.data.name,
-                    email: event.data.email,
-                    password: event.data.password,
-                  );
-              emit(
-                AuthLoading(),
-              );
-              await UserServices().updateUser(event.data);
+        try {
+          emit(AuthLoading());
 
-              emit(
-                AuthSucces(updateUser),
-              );
-            }
-          } catch (e) {
-            emit(
-              AuthFailed(
-                e.toString(),
-              ),
-            );
-          }
+          await AuthServices().updateUser(event.data);
+
+          final updatedUser = event.user.copyWith(
+            name: event.data.name,
+            userName: event.data.username,
+            email: event.data.email,
+          );
+
+          emit(AuthSucces(updatedUser));
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
         }
+      }
         if (event is AuthUpdatePin) {
           try {
             if (state is AuthSucces) {
@@ -117,23 +107,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           }
         }
         if (event is AuthLogout) {
-          try {
-            emit(
-              AuthLoading(),
-            );
-            await AuthServices().logout();
-            await AuthServices().clearLocalStorage();
-            emit(
-              AuthInitial(),
-            );
-          } catch (e) {
-            emit(
-              AuthFailed(
-                e.toString(),
-              ),
-            );
-          }
-        }
+      try {
+        emit(
+          AuthLoading(),
+        );
+        await AuthServices().logout();
+        await AuthServices().clearLocalStorage();
+        emit(
+          AuthInitial(),
+        );
+      } catch (e) {
+        emit(
+          AuthFailed(
+            e.toString(),
+          ),
+        );
+      }
+    }
       },
     );
   }

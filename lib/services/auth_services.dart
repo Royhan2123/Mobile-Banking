@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_ebanking/models/signin_model.dart';
 import 'package:mobile_ebanking/models/signup_model.dart';
+import 'package:mobile_ebanking/models/users_edit_form_model.dart';
 import 'package:mobile_ebanking/models/users_model.dart';
 
 class AuthServices {
@@ -63,6 +64,23 @@ class AuthServices {
     }
   }
 
+   Future<void> logout() async {
+    try {
+      final token = await getToken();
+      final response = await http.post(
+        Uri.parse("$baseUrl/logout"),
+        headers: {"Authorization": "bearer$token"},
+      );
+      if (response.statusCode == 200) {
+        await clearLocalStorage();
+      } else {
+        throw jsonDecode(response.body)["message"];
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   // untuk store credential ke dalam local
   Future<void> storeCredentialToLocal(UserModels user) async {
     try {
@@ -71,6 +89,33 @@ class AuthServices {
       await storage.write(key: "email", value: user.email);
       await storage.write(key: "password", value: user.password);
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateUser(UserEditFormModel data) async {
+    try {
+      print(data.toJson());
+
+      final token = await getToken();
+
+      final res = await http.put(
+        Uri.parse(
+          '$baseUrl/users',
+        ),
+        body: data.toJson(),
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      print(res.body);
+
+      if (res.statusCode != 200) {
+        throw jsonDecode(res.body)['message'];
+      }
+    } catch (e) {
+      print(e);
       rethrow;
     }
   }
@@ -102,7 +147,7 @@ class AuthServices {
     String? value = await storage.read(key: "token");
 
     if (value != null) {
-      token = "barier$value";
+       token = "bearer${value.replaceAll("\n", "")}";
     }
     return token;
   }
@@ -112,21 +157,4 @@ class AuthServices {
     const storage = FlutterSecureStorage();
     await storage.deleteAll();
   }
-
-  Future<void> logout() async {
-  try {
-    final token = await getToken();
-    final response = await http.post(
-      Uri.parse("$baseUrl/logout"),
-      headers: {"Authorization": "bearer$token"},
-    );
-    if (response.statusCode == 200) {
-      await clearLocalStorage();
-    } else {
-      throw jsonDecode(response.body)["message"];
-    }
-  } catch (e) {
-    rethrow;
-  }
-}
 }

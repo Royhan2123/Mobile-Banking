@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/models/users_edit_form_model.dart';
+import 'package:mobile_ebanking/models/users_model.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class ProfilEditPage extends StatefulWidget {
-  const ProfilEditPage({super.key});
+  final UserModels user;
+  const ProfilEditPage({required this.user, super.key});
 
   @override
   State<ProfilEditPage> createState() => _ProfilEditPageState();
 }
 
 class _ProfilEditPageState extends State<ProfilEditPage> {
-
-
   final TextEditingController txtUserName = TextEditingController(text: "");
   final TextEditingController txtFullName = TextEditingController(text: "");
   final TextEditingController txtEmail = TextEditingController(text: "");
@@ -23,14 +23,10 @@ class _ProfilEditPageState extends State<ProfilEditPage> {
   @override
   void initState() {
     super.initState();
-    final auth = context.read<AuthBloc>().state;
-
-    if (auth is AuthSucces) {
-        txtUserName.text = auth.user.userName!;
-        txtFullName.text = auth.user.name!;
-        txtEmail.text = auth.user.email!;
-        txtPassword.text = auth.user.password!;
-    }
+    txtUserName.text = widget.user.userName!;
+    txtFullName.text = widget.user.name!;
+    txtEmail.text = widget.user.email!;
+    txtPassword.text = widget.user.password!;
   }
 
   bool obsucureText = true;
@@ -219,6 +215,7 @@ class _ProfilEditPageState extends State<ProfilEditPage> {
                             onPressed: () {
                               context.read<AuthBloc>().add(
                                     AuthUpdateUser(
+                                      widget.user,
                                       UserEditFormModel(
                                         username: txtUserName.text,
                                         name: txtFullName.text,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/pages/home_latest_transaction.dart';
@@ -82,7 +84,7 @@ class _HomePageState extends State<HomePage> {
         body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           children: [
-            profileSection(),
+            profileSection(context),
             buildEwalletCard(),
             buildLevel(),
             buildServices(),
@@ -95,90 +97,129 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget profileSection() {
-    return Container(
-      margin: const EdgeInsets.only(top: 40),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Howdy,",
-                style: greyStyle.copyWith(fontSize: 15, fontWeight: medium),
-              ),
-              Text(
-                "shaynahan,",
-                style: blackStyle.copyWith(fontSize: 20, fontWeight: semiBold),
-              ),
-            ],
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, '/profilPage');
-            },
-            child: Container(
-              width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  image: const DecorationImage(
-                      image: AssetImage("assets/img_profile.png"))),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Image.asset(
-                  "assets/ic_check.png",
-                  width: 22,
+  Widget profileSection(BuildContext context) {
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        if (state is AuthSucces) {
+          return Container(
+            margin: const EdgeInsets.only(top: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Howdy,",
+                      style:
+                          greyStyle.copyWith(fontSize: 15, fontWeight: medium),
+                    ),
+                    Text(
+                      state.user.name.toString(),
+                      style: blackStyle.copyWith(
+                          fontSize: 20, fontWeight: semiBold),
+                    ),
+                  ],
                 ),
-              ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/profilPage');
+                  },
+                  child: Container(
+                    width: 75,
+                    height: 75,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      image: DecorationImage(
+                        image: state.user.profilePicture == null
+                            ? const AssetImage(
+                                'assets/img_profile.png',
+                              )
+                            : NetworkImage(state.user.profilePicture!)
+                                as ImageProvider,
+                      ),
+                    ),
+                    child: state.user.verified == null
+                        ? Container()
+                        : Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                              width: 28,
+                              height: 28,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: whiteColor,
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.check_circle,
+                                  color: greenColor,
+                                  size: 24,
+                                ),
+                              ),
+                            ),
+                          ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 
   Widget buildEwalletCard() {
-    return Container(
-      margin: const EdgeInsets.only(top: 50),
-      height: 220,
-      padding: const EdgeInsets.all(30),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          image: const DecorationImage(
-              image: AssetImage("assets/img_bg_card.png"), fit: BoxFit.cover)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Shayna Hanna",
-            style: whiteStyle.copyWith(fontWeight: medium, fontSize: 15),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            "**** **** **** 1280",
-            style: whiteStyle.copyWith(
-                fontSize: 15, fontWeight: medium, letterSpacing: 6),
-          ),
-          const SizedBox(
-            height: 35,
-          ),
-          Text(
-            "Balance",
-            style: whiteStyle.copyWith(fontSize: 14),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            formatCurrency(12500),
-            style: whiteStyle.copyWith(fontSize: 20),
-          ),
-        ],
-      ),
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        if (state is AuthSucces) {
+          return Container(
+            margin: const EdgeInsets.only(top: 50),
+            height: 220,
+            padding: const EdgeInsets.all(30),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                image: const DecorationImage(
+                    image: AssetImage("assets/img_bg_card.png"),
+                    fit: BoxFit.cover)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  state.user.name!,
+                  style: whiteStyle.copyWith(fontWeight: medium, fontSize: 15),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "**** **** **** 1280",
+                  style: whiteStyle.copyWith(
+                      fontSize: 15, fontWeight: medium, letterSpacing: 6),
+                ),
+                const SizedBox(
+                  height: 35,
+                ),
+                Text(
+                  "Balance",
+                  style: whiteStyle.copyWith(fontSize: 14),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  formatCurrency(state.user.balance ?? 0),
+                  style: whiteStyle.copyWith(fontSize: 20),
+                ),
+              ],
+            ),
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 

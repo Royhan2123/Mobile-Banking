@@ -53,7 +53,6 @@ class NewApp extends StatelessWidget {
           '/homePage': (context) => const HomePage(),
           '/profilPage': (context) => const ProfilPage(),
           '/pinPage': (context) => const PinPage(),
-          '/profilEditPage': (context) => const ProfilEditPage(),
           '/profilEditPinPage': (context) => const ProfilEditPinPage(),
           '/profilEditSuccesPage': (context) => const ProfilEditSuccesPage(),
           '/topUpPage': (context) => const TopUpPage(),
