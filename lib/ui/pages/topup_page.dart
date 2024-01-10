@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/pages/bank_item.dart';
 
@@ -32,35 +34,46 @@ class TopUpPage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Image.asset(
-                  'assets/img_wallet.png',
-                  width: 80,
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "8008 2208 1996",
-                      style: blackStyle.copyWith(
-                          fontSize: 13, fontWeight: bold, letterSpacing: 1),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Royhan",
-                      style: greyStyle.copyWith(
-                        fontSize: 13,
+            BlocBuilder<AuthBloc, AuthState>(
+              builder: (context, state) {
+                if (state is AuthSucces) {
+                  return Row(
+                    children: [
+                      Image.asset(
+                        'assets/img_wallet.png',
+                        width: 80,
                       ),
-                    ),
-                  ],
-                )
-              ],
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            state.user.cardNumber!.replaceAllMapped(
+                                    RegExp(r".{4}"),
+                                    (match) => "${match.group(0)} "),
+                            style: blackStyle.copyWith(
+                                fontSize: 13,
+                                fontWeight: bold,
+                                letterSpacing: 1),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            state.user.name.toString(),
+                            style: greyStyle.copyWith(
+                              fontSize: 13,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  );
+                }
+                return const SizedBox();
+              },
             ),
             const SizedBox(
               height: 30,

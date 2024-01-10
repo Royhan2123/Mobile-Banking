@@ -30,17 +30,15 @@ class UserModels {
         name: json["name"],
         id: json["id"],
         email: json["email"],
-        userName: json["userName"],
+        userName: json["username"],
         verified: json["verified"],
-        profilePicture: json["profilePicture"],
+        profilePicture: json["profile_picture"],
         pin: json["pin"],
         balance: json["balance"],
-        cardNumber: json["cardNumber"],
+        cardNumber: json["card_number"],
         token: json["token"],
         password: json["password"],
       );
-
-      
 
   UserModels copyWith({
     String? name,

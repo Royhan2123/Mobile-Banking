@@ -22,7 +22,7 @@ class SignUpModels {
         "password": password,
         "pin": pin,
         "ktp": ktp,
-        "profilePicture": profilePicture,
+        "profile_picture": profilePicture,
       };
   SignUpModels copyWith({
     String? pin,
