@@ -80,14 +80,14 @@ class _ProfilPageState extends State<ProfilPage> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     image: DecorationImage(
-                                      image: state.user.profilePicture == null
-                                          ? const AssetImage(
-                                              'assets/img_profile.png',
-                                            )
-                                          : NetworkImage(
-                                                  state.user.profilePicture!)
-                                              as ImageProvider,
-                                    ),
+                                        image: state.user.profilePicture == null
+                                            ? const AssetImage(
+                                                'assets/img_profile.png',
+                                              )
+                                            : NetworkImage(
+                                                    state.user.profilePicture!)
+                                                as ImageProvider,
+                                        fit: BoxFit.cover),
                                   ),
                                   child: state.user.verified == 1
                                       ? Align(

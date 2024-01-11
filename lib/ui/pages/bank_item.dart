@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ebanking/models/payment_method.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class BankItem extends StatelessWidget {
-  final String imageUrl;
-  final String name;
+  final PaymenMethodModel paymenMethodModel;
   final bool isSelected;
-  final String min;
   const BankItem(
-      {required this.imageUrl,
-      required this.name,
-      required this.min,
+      {required this.paymenMethodModel,
       this.isSelected = false,
       super.key});
 
@@ -26,18 +23,18 @@ class BankItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(
-            imageUrl,
+          Image.network(
+            paymenMethodModel.thumbnail!,
             width: 80,
           ),
           Column(
             children: [
               Text(
-                name,
+                paymenMethodModel.name.toString(),
                 style: blackStyle.copyWith(fontSize: 13, fontWeight: bold),
               ),
               Text(
-                min,
+                "50 MIN",
                 style: greyStyle.copyWith(
                   fontSize: 13,
                 ),

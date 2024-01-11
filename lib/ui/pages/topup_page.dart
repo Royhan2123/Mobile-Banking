@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
+import 'package:mobile_ebanking/bloc/payment_metod/payment_method_bloc.dart';
+import 'package:mobile_ebanking/models/payment_method.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/pages/bank_item.dart';
 
-class TopUpPage extends StatelessWidget {
+class TopUpPage extends StatefulWidget {
   const TopUpPage({super.key});
 
+  @override
+  State<TopUpPage> createState() => _TopUpPageState();
+}
+
+class _TopUpPageState extends State<TopUpPage> {
+  PaymenMethodModel? selectPaymentMethod;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,7 +27,12 @@ class TopUpPage extends StatelessWidget {
             style: blackStyle.copyWith(fontSize: 15, fontWeight: bold),
           ),
           backgroundColor: lightBackgroundColor,
-          leading: Icon(Icons.arrow_back_ios_new, size: 20, color: blackColor),
+          leading: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child:
+                  Icon(Icons.arrow_back_ios_new, size: 20, color: blackColor)),
         ),
         body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -51,8 +64,8 @@ class TopUpPage extends StatelessWidget {
                         children: [
                           Text(
                             state.user.cardNumber!.replaceAllMapped(
-                                    RegExp(r".{4}"),
-                                    (match) => "${match.group(0)} "),
+                                RegExp(r".{4}"),
+                                (match) => "${match.group(0)} "),
                             style: blackStyle.copyWith(
                                 fontSize: 13,
                                 fontWeight: bold,
@@ -85,41 +98,49 @@ class TopUpPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const BankItem(
-              imageUrl: 'assets/img_bank_bca.png',
-              name: "BANK BCA",
-              min: "50 mins",
-              isSelected: true,
-            ),
-            const BankItem(
-              imageUrl: 'assets/img_bank_bni.png',
-              name: "BANK BNI",
-              min: "50 mins",
-            ),
-            const BankItem(
-              imageUrl: 'assets/img_bank_mandiri.png',
-              name: "BANK MANDIRI",
-              min: "50 mins",
-            ),
-            const BankItem(
-              imageUrl: 'assets/img_bank_ocbc.png',
-              name: "BANK OCBC",
-              min: "50 mins",
-            ),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.blue,
-                    shadowColor: Colors.black,
-                    backgroundColor: purpleColor,
-                    shape: const StadiumBorder(),
-                    minimumSize: const Size(350, 40)),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/topUpAmountPage');
+            BlocProvider(
+              create: (context) => PaymentMethodBloc()..add(PaymentMethodGet()),
+              child: BlocBuilder<PaymentMethodBloc, PaymentMethodState>(
+                builder: (context, state) {
+                  if (state is PaymentMethodSucces) {
+                    return Column(
+                      children: state.paymentMethod.map((paymentMethod) {
+                        return InkWell(
+                          onTap: () {
+                            setState(() {
+                              selectPaymentMethod = paymentMethod;
+                            });
+                          },
+                          child: BankItem(
+                            paymenMethodModel: paymentMethod,
+                            isSelected:
+                                paymentMethod.id == selectPaymentMethod?.id,
+                          ),
+                        );
+                      }).toList(),
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 },
-                child: Text(
-                  "Continue",
-                  style: whiteStyle.copyWith(fontSize: 13),
-                )),
+              ),
+            ),
+            if (selectPaymentMethod != null)
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.blue,
+                      shadowColor: Colors.black,
+                      backgroundColor: purpleColor,
+                      shape: const StadiumBorder(),
+                      minimumSize: const Size(350, 40)),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/topUpAmountPage');
+                  },
+                  child: Text(
+                    "Continue",
+                    style: whiteStyle.copyWith(fontSize: 13),
+                  )),
             const SizedBox(
               height: 20,
             )
