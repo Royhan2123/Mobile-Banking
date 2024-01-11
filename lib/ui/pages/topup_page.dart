@@ -141,8 +141,10 @@ class _TopUpPageState extends State<TopUpPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const TopUpAmountPage(
-                          topUpFormModel: TopUpFormModel(),
+                        builder: (context) => TopUpAmountPage(
+                          topUpFormModel: TopUpFormModel(
+                            paymentMethodCode: selectPaymentMethod?.code
+                          ),
                         ),
                       ),
                     );
