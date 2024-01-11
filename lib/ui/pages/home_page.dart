@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Howdy,",
+                      state.user.userName!,
                       style:
                           greyStyle.copyWith(fontSize: 15, fontWeight: medium),
                     ),
@@ -126,18 +126,18 @@ class _HomePageState extends State<HomePage> {
                     Navigator.pushNamed(context, '/profilPage');
                   },
                   child: Container(
-                    width: 75,
-                    height: 75,
+                    width: 65,
+                    height: 65,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       image: DecorationImage(
-                        image: state.user.profilePicture == null
-                            ? const AssetImage(
-                                'assets/img_profile.png',
-                              )
-                            : NetworkImage(state.user.profilePicture!)
-                                as ImageProvider,
-                      ),
+                          image: state.user.profilePicture == null
+                              ? const AssetImage(
+                                  'assets/img_profile.png',
+                                )
+                              : NetworkImage(state.user.profilePicture!)
+                                  as ImageProvider,
+                          fit: BoxFit.cover),
                     ),
                     child: state.user.verified == null
                         ? Container()

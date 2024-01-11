@@ -87,7 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           height: 20,
                         ),
                         Text(
-                          "Full name",
+                          "Username",
                           style: blackStyle.copyWith(
                               fontSize: 13, fontWeight: medium),
                         ),
@@ -98,7 +98,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           controller: txtName,
                           decoration: InputDecoration(
                               hintStyle: greyStyle.copyWith(fontSize: 13),
-                              hintText: "your name",
+                              hintText: "input user name",
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15)),
                               contentPadding: const EdgeInsets.all(12)),
