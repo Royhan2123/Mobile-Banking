@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/bloc/payment_metod/payment_method_bloc.dart';
 import 'package:mobile_ebanking/models/payment_method.dart';
+import 'package:mobile_ebanking/models/topup_form_model.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/pages/bank_item.dart';
+import 'package:mobile_ebanking/ui/pages/topup_amount.dart';
 
 class TopUpPage extends StatefulWidget {
   const TopUpPage({super.key});
@@ -129,13 +131,21 @@ class _TopUpPageState extends State<TopUpPage> {
             if (selectPaymentMethod != null)
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.blue,
-                      shadowColor: Colors.black,
-                      backgroundColor: purpleColor,
-                      shape: const StadiumBorder(),
-                      minimumSize: const Size(350, 40)),
+                    foregroundColor: Colors.blue,
+                    shadowColor: Colors.black,
+                    backgroundColor: purpleColor,
+                    shape: const StadiumBorder(),
+                    minimumSize: const Size(350, 40),
+                  ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/topUpAmountPage');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TopUpAmountPage(
+                          topUpFormModel: TopUpFormModel(),
+                        ),
+                      ),
+                    );
                   },
                   child: Text(
                     "Continue",

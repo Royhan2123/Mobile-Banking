@@ -2,12 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_ebanking/models/topup_form_model.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/widgets/custom_input_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TopUpAmountPage extends StatefulWidget {
-  const TopUpAmountPage({super.key});
+  final TopUpFormModel topUpFormModel;
+  const TopUpAmountPage({required this.topUpFormModel, super.key});
 
   @override
   State<TopUpAmountPage> createState() => _TopUpAmountPageState();

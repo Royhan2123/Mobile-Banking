@@ -15,7 +15,6 @@ import 'package:mobile_ebanking/ui/pages/signin_page.dart';
 import 'package:mobile_ebanking/ui/pages/signup_page.dart';
 import 'package:mobile_ebanking/ui/pages/signup_succes_page.dart';
 import 'package:mobile_ebanking/ui/pages/splash_page.dart';
-import 'package:mobile_ebanking/ui/pages/topup_amount.dart';
 import 'package:mobile_ebanking/ui/pages/topup_page.dart';
 import 'package:mobile_ebanking/ui/pages/topup_succes.dart';
 import 'package:mobile_ebanking/ui/pages/transfer_amount_page.dart';
@@ -55,7 +54,6 @@ class NewApp extends StatelessWidget {
           '/profilEditPinPage': (context) => const ProfilEditPinPage(),
           '/profilEditSuccesPage': (context) => const ProfilEditSuccesPage(),
           '/topUpPage': (context) => const TopUpPage(),
-          '/topUpAmountPage': (context) => const TopUpAmountPage(),
           '/topUpSucces': (context) => const TopUpSucces(),
           '/transferPage': (context) => const TransferPage(),
           '/transferAmountPage': (context) => const TransferAmountPage(),
