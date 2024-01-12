@@ -68,22 +68,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           }
         }
         if (event is AuthUpdateUser) {
-        try {
-          emit(AuthLoading());
+          try {
+            emit(AuthLoading());
 
-          await AuthServices().updateUser(event.data);
+            await AuthServices().updateUser(event.data);
 
-          final updatedUser = event.user.copyWith(
-            name: event.data.name,
-            userName: event.data.username,
-            email: event.data.email,
-          );
+            final updatedUser = event.user.copyWith(
+              name: event.data.name,
+              userName: event.data.username,
+              email: event.data.email,
+            );
 
-          emit(AuthSucces(updatedUser));
-        } catch (e) {
-          emit(AuthFailed(e.toString()));
+            emit(AuthSucces(updatedUser));
+          } catch (e) {
+            emit(AuthFailed(e.toString()));
+          }
         }
-      }
         if (event is AuthUpdatePin) {
           try {
             if (state is AuthSucces) {
@@ -107,23 +107,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           }
         }
         if (event is AuthLogout) {
-      try {
-        emit(
-          AuthLoading(),
-        );
-        await AuthServices().logout();
-        await AuthServices().clearLocalStorage();
-        emit(
-          AuthInitial(),
-        );
-      } catch (e) {
-        emit(
-          AuthFailed(
-            e.toString(),
-          ),
-        );
-      }
-    }
+          try {
+            emit(
+              AuthLoading(),
+            );
+            await AuthServices().logout();
+            await AuthServices().clearLocalStorage();
+            emit(
+              AuthInitial(),
+            );
+          } catch (e) {
+            print("ERROR LOGOUT $e");
+            emit(
+              AuthFailed('Failed to logout: $e'),
+            );
+          }
+        }
       },
     );
   }

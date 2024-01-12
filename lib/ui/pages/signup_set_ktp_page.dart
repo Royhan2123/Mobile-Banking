@@ -155,24 +155,24 @@ class _SignUpSetKtpState extends State<SignUpSetKtp> {
                                 minimumSize: const Size(350, 40)),
                             onPressed: () {
                               if (selectedImage == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: const Text(
-                                'Gambar tidak boleh kosong',
-                              ),
-                              backgroundColor: redColor,
-                            ),
-                          );
-                        } else {
-                          context.read<AuthBloc>().add(
-                                AuthRegister(
-                                  widget.data.copyWith(
-                                    ktp: 'data:image/png;base64,${base64Encode(File(selectedImage!.path)
-                                            .readAsBytesSync())}',
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: const Text(
+                                      'Gambar tidak boleh kosong',
+                                    ),
+                                    backgroundColor: redColor,
                                   ),
-                                ),
-                              );
-                        }
+                                );
+                              } else {
+                                context.read<AuthBloc>().add(
+                                      AuthRegister(
+                                        widget.data.copyWith(
+                                          ktp:
+                                              'data:image/png;base64,${base64Encode(File(selectedImage!.path).readAsBytesSync())}',
+                                        ),
+                                      ),
+                                    );
+                              }
                             },
                             child: Text(
                               "Continue",
@@ -193,11 +193,8 @@ class _SignUpSetKtpState extends State<SignUpSetKtp> {
                 Center(
                   child: TextButton(
                     onPressed: () {
-                      context.read<AuthBloc>().add(
-                            AuthRegister(
-                              widget.data,
-                            ),
-                          );
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, "/homePage", (route) => false);
                     },
                     child: Text(
                       "Skip for now",
