@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/bloc/payment_metod/payment_method_bloc.dart';
-import 'package:mobile_ebanking/models/payment_method.dart';
+import 'package:mobile_ebanking/models/payment_method_model.dart';
 import 'package:mobile_ebanking/models/topup_form_model.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/pages/bank_item.dart';
@@ -142,9 +142,8 @@ class _TopUpPageState extends State<TopUpPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => TopUpAmountPage(
-                          topUpFormModel: TopUpFormModel(
-                            paymentMethodCode: selectPaymentMethod?.code
-                          ),
+                          topUpFormModel: TopupFormModel(
+                              paymentMethodCode: selectPaymentMethod?.code),
                         ),
                       ),
                     );

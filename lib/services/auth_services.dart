@@ -141,14 +141,15 @@ class AuthServices {
 
   // untuk mendapatkan token barier
   Future<String> getToken() async {
-    String token = "";
+    String token = '';
 
     const storage = FlutterSecureStorage();
-    String? value = await storage.read(key: "token");
+    String? value = await storage.read(key: 'token');
 
     if (value != null) {
-       token = "bearer${value.replaceAll("\n", "")}";
+      token = value;
     }
+
     return token;
   }
 

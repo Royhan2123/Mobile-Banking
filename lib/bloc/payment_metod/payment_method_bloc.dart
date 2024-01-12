@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mobile_ebanking/models/payment_method.dart';
+import 'package:mobile_ebanking/models/payment_method_model.dart';
 import 'package:mobile_ebanking/services/payment_method_services.dart';
 
 part 'payment_method_event.dart';
@@ -21,6 +21,7 @@ class PaymentMethodBloc extends Bloc<PaymentMethodEvent, PaymentMethodState> {
             PaymentMethodSucces(paymentMethods),
           );
         } catch (e) {
+          print("Error $e");
           emit(
             PaymentMethodFailed(
               e.toString(),

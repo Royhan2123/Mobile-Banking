@@ -8,7 +8,7 @@ sealed class TopUpEvent extends Equatable {
 }
 
 class TopUpPost extends TopUpEvent {
-  final TopUpFormModel data;
+  final TopupFormModel data;
   const TopUpPost(this.data);
 
   @override

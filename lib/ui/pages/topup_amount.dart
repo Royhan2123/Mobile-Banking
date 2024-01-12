@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +12,7 @@ import 'package:mobile_ebanking/ui/widgets/custom_input_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TopUpAmountPage extends StatefulWidget {
-  final TopUpFormModel topUpFormModel;
+  final TopupFormModel topUpFormModel;
   const TopUpAmountPage({required this.topUpFormModel, super.key});
 
   @override
@@ -75,8 +77,8 @@ class _TopUpAmountPageState extends State<TopUpAmountPage> {
             }
 
             if (state is TopUpSucces) {
-              await launchUrl(
-                Uri.parse("https://demo.midtrans.com/"),
+              await launch(
+                state.redirectUrl
               );
               Navigator.pushNamedAndRemoveUntil(
                   context, "/ topUpSucces", (route) => false);
@@ -227,10 +229,10 @@ class _TopUpAmountPageState extends State<TopUpAmountPage> {
                           if (authState is AuthSucces) {
                             pin = authState.user.pin!;
                           }
-
+                          
                           context.read<TopUpBloc>().add(
                                 TopUpPost(
-                                  widget.topUpFormModel.copywith(
+                                  widget.topUpFormModel.copyWith(
                                     pin: pin,
                                     amount: amountController.text
                                         .replaceAll(".", ""),

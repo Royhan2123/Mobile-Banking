@@ -120,13 +120,13 @@ class _ProfilPageState extends State<ProfilPage> {
                               if (await Navigator.pushNamed(
                                       context, '/pinPage') ==
                                   true) {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProfilEditPage(user: state.user),
-                                    ),
-                                    (route) => false);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProfilEditPage(user: state.user),
+                                  ),
+                                );
                               }
                             },
                           ),

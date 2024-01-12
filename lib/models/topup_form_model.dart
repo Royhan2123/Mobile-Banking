@@ -1,30 +1,28 @@
-class TopUpFormModel {
+class TopupFormModel {
   final String? amount;
   final String? pin;
   final String? paymentMethodCode;
 
-  const TopUpFormModel({
+  TopupFormModel({
     this.amount,
     this.pin,
     this.paymentMethodCode,
   });
 
-  TopUpFormModel copywith({
+  TopupFormModel copyWith({
     String? amount,
     String? pin,
     String? paymentMethodCode,
   }) =>
-      TopUpFormModel(
+      TopupFormModel(
         amount: amount ?? this.amount,
         pin: pin ?? this.pin,
         paymentMethodCode: paymentMethodCode ?? this.paymentMethodCode,
       );
 
-  Map<String, dynamic> toJson() {
-    return {
-      "amount": amount,
-      "pin": pin,
-      "payment_method_code": paymentMethodCode,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'amount': amount,
+        'pin': pin,
+        'payment_method_code': paymentMethodCode,
+      };
 }

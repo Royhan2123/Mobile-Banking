@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_ebanking/models/payment_method.dart';
+import 'package:mobile_ebanking/models/payment_method_model.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class BankItem extends StatelessWidget {
