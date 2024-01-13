@@ -81,7 +81,7 @@ class _TopUpAmountPageState extends State<TopUpAmountPage> {
                 state.redirectUrl
               );
               Navigator.pushNamedAndRemoveUntil(
-                  context, "/ topUpSucces", (route) => false);
+                  context, "/topUpSucces", (route) => false);
             }
           },
           builder: (context, state) {
