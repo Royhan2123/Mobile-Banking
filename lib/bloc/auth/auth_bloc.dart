@@ -14,6 +14,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     on<AuthEvent>(
       (event, emit) async {
+        
         if (event is AuthCheckEmail) {
           try {
             emit(AuthLoading());
@@ -67,6 +68,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             emit(AuthFailed(e.toString()));
           }
         }
+        
         if (event is AuthUpdateUser) {
           try {
             emit(AuthLoading());
@@ -84,6 +86,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             emit(AuthFailed(e.toString()));
           }
         }
+        
         if (event is AuthUpdatePin) {
           try {
             if (state is AuthSucces) {
@@ -106,6 +109,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             );
           }
         }
+        
         if (event is AuthLogout) {
           try {
             emit(
@@ -120,6 +124,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             print("ERROR LOGOUT $e");
             emit(
               AuthFailed('Failed to logout: $e'),
+            );
+          }
+        }
+        
+        if (event is AuthUpdateBalance) {
+          if (state is AuthSucces) {
+            final currentUser = (state as AuthSucces).user;
+            final updateUser = currentUser.copyWith(
+              balance: currentUser.balance! + event.amount,
+            );
+            emit(
+              AuthSucces(updateUser),
             );
           }
         }

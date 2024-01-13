@@ -77,9 +77,15 @@ class _TopUpAmountPageState extends State<TopUpAmountPage> {
             }
 
             if (state is TopUpSucces) {
-              await launch(
-                state.redirectUrl
-              );
+              await launch(state.redirectUrl);
+
+              context.read<AuthBloc>().add(
+                    AuthUpdateBalance(
+                      int.parse(
+                        amountController.text.replaceAll('.', ''),
+                      ),
+                    ),
+                  );
               Navigator.pushNamedAndRemoveUntil(
                   context, "/topUpSucces", (route) => false);
             }
@@ -229,7 +235,7 @@ class _TopUpAmountPageState extends State<TopUpAmountPage> {
                           if (authState is AuthSucces) {
                             pin = authState.user.pin!;
                           }
-                          
+
                           context.read<TopUpBloc>().add(
                                 TopUpPost(
                                   widget.topUpFormModel.copyWith(

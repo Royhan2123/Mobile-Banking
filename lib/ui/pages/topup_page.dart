@@ -128,8 +128,12 @@ class _TopUpPageState extends State<TopUpPage> {
                 },
               ),
             ),
-            if (selectPaymentMethod != null)
-              ElevatedButton(
+          ],
+        ),
+        floatingActionButton: (selectPaymentMethod != null)
+            ? Container(
+                margin: const EdgeInsets.all(25),
+                child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.blue,
                     shadowColor: Colors.black,
@@ -151,12 +155,11 @@ class _TopUpPageState extends State<TopUpPage> {
                   child: Text(
                     "Continue",
                     style: whiteStyle.copyWith(fontSize: 13),
-                  )),
-            const SizedBox(
-              height: 20,
-            )
-          ],
-        ),
+                  ),
+                ),
+              )
+            : Container(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
