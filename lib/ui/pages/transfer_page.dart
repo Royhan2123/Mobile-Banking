@@ -154,35 +154,38 @@ class _TransferPageState extends State<TransferPage> {
   Widget buildResult() {
     return Container(
       margin: const EdgeInsets.only(top: 40),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Result",
-            style: blackStyle.copyWith(fontSize: 16, fontWeight: semiBold),
-          ),
-          const SizedBox(
-            height: 14,
-          ),
-          const Wrap(
-            spacing: 20,
-            runSpacing: 20,
-            children: [
-              TransferResultUserItem(
-                imageUrl: "assets/img_friend1.png",
-                name: "Yonna Jie",
-                username: "yoenna",
-                isVerified: true,
-              ),
-              TransferResultUserItem(
-                imageUrl: "assets/img_friend2.png",
-                name: "Yonna Jie",
-                username: "yoenna",
-                isSelected: true,
-              ),
-            ],
-          )
-        ],
+      child: BlocBuilder<UserBloc, UserState>(
+        builder: (context, state) {
+          if (state is UserSucces) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Result",
+                  style:
+                      blackStyle.copyWith(fontSize: 16, fontWeight: semiBold),
+                ),
+                const SizedBox(
+                  height: 14,
+                ),
+                Wrap(
+                  spacing: 20,
+                  runSpacing: 20,
+                  children: state.user.map((user) {
+                    return TransferResultUserItem(
+                      user: user,
+                    );
+                  }).toList(),
+                ),
+              ],
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.red,
+            ),
+          );
+        },
       ),
     );
   }
