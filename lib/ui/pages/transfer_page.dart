@@ -74,6 +74,7 @@ class _TransferPageState extends State<TransferPage> {
                     UserGetByUsername(usernameController.text),
                   );
                 } else {
+                  selectedUser = null;
                   userBloc.add(
                     UserGetRecent(),
                   );
@@ -172,8 +173,16 @@ class _TransferPageState extends State<TransferPage> {
                   spacing: 20,
                   runSpacing: 20,
                   children: state.user.map((user) {
-                    return TransferResultUserItem(
-                      user: user,
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          selectedUser = user;
+                        });
+                      },
+                      child: TransferResultUserItem(
+                        user: user,
+                        isSelected: user.id == selectedUser?.id,
+                      ),
                     );
                   }).toList(),
                 ),
