@@ -51,4 +51,31 @@ class UserServices {
       rethrow;
     }
   }
+
+  Future<List<UserModels>> getUsersByUsername(String username) async {
+    try {
+      final token = await AuthServices().getToken();
+
+      final response = await http.get(
+        Uri.parse(
+          "$baseUrl/users/$username",
+        ),
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return List<UserModels>.from(
+          jsonDecode(response.body).map(
+            (user) => UserModels.fromJson(user),
+          ),
+        );
+      }
+
+      throw jsonDecode(response.body)["message"];
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
