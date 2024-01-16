@@ -132,22 +132,20 @@ class _TransferPageState extends State<TransferPage> {
           const SizedBox(
             height: 14,
           ),
-          const TransferRecentUserItem(
-            imageUrl: "assets/img_friend1.png",
-            name: "Yonna Jie",
-            username: "Yoenna",
-            isVerified: true,
-          ),
-          const TransferRecentUserItem(
-            imageUrl: "assets/img_friend2.png",
-            name: "John Hi",
-            username: "jhi",
-          ),
-          const TransferRecentUserItem(
-            imageUrl: "assets/img_friend3.png",
-            name: "Masayoshi",
-            username: "form",
-          ),
+          BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              if (state is UserSucces) {
+                return Column(
+                  children: state.user.map((user) {
+                    return TransferRecentUserItem(user: user);
+                  }).toList(),
+                );
+              }
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          )
         ],
       ),
     );
