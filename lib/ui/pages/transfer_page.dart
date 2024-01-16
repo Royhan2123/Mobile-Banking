@@ -1,10 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_ebanking/bloc/user/user_bloc.dart';
+import 'package:mobile_ebanking/models/users_model.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/widgets/transfer_result_item.dart';
 import 'package:mobile_ebanking/ui/widgets/trasnfer_recent_user_item.dart';
 
-class TransferPage extends StatelessWidget {
+class TransferPage extends StatefulWidget {
   const TransferPage({super.key});
+
+  @override
+  State<TransferPage> createState() => _TransferPageState();
+}
+
+class _TransferPageState extends State<TransferPage> {
+  final usernameController = TextEditingController(text: "");
+  UserModels? selectedUser;
+
+  late UserBloc userBloc;
+
+  @override
+  void initState() {
+    super.initState();
+
+    userBloc = context.read<UserBloc>()
+      ..add(
+        UserGetRecent(),
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +65,21 @@ class TransferPage extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            TextField(
+            TextFormField(
+              controller: usernameController,
               keyboardType: TextInputType.name,
+              onFieldSubmitted: (value) {
+                if (value.isNotEmpty) {
+                  userBloc.add(
+                    UserGetByUsername(usernameController.text),
+                  );
+                } else {
+                  userBloc.add(
+                    UserGetRecent(),
+                  );
+                }
+                setState(() {});
+              },
               decoration: InputDecoration(
                   hintText: "by username",
                   hintStyle: greyStyle.copyWith(fontSize: 14),
@@ -51,30 +87,33 @@ class TransferPage extends StatelessWidget {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20))),
             ),
-            buildRecentUsers(),
-            // buildResult(),
+            usernameController.text.isEmpty
+                ? buildRecentUsers()
+                : buildResult(),
             const SizedBox(
               height: 20,
             ),
           ],
         ),
-        floatingActionButton: Container(
-          margin: const EdgeInsets.all(20),
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.blue,
-                  shadowColor: Colors.black,
-                  backgroundColor: purpleColor,
-                  shape: const StadiumBorder(),
-                  minimumSize: const Size(350, 40)),
-              onPressed: () async {
-                Navigator.pushNamed(context, '/transferAmountPage');
-              },
-              child: Text(
-                "Continue",
-                style: whiteStyle.copyWith(fontSize: 13),
-              )),
-        ),
+        floatingActionButton: selectedUser != null
+            ? Container(
+                margin: const EdgeInsets.all(20),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.blue,
+                        shadowColor: Colors.black,
+                        backgroundColor: purpleColor,
+                        shape: const StadiumBorder(),
+                        minimumSize: const Size(350, 40)),
+                    onPressed: () async {
+                      Navigator.pushNamed(context, '/transferAmountPage');
+                    },
+                    child: Text(
+                      "Continue",
+                      style: whiteStyle.copyWith(fontSize: 13),
+                    )),
+              )
+            : Container(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
