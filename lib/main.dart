@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
+import 'package:mobile_ebanking/bloc/user/user_bloc.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/pages/data_packages_page.dart';
 import 'package:mobile_ebanking/ui/pages/data_provider_page.dart';
@@ -22,7 +23,9 @@ import 'package:mobile_ebanking/ui/pages/transfer_page.dart';
 import 'package:mobile_ebanking/ui/pages/transfer_succes_page.dart';
 
 void main() {
-  runApp(const NewApp());
+  runApp(
+    const NewApp(),
+  );
 }
 
 class NewApp extends StatelessWidget {
@@ -37,6 +40,9 @@ class NewApp extends StatelessWidget {
             ..add(
               AuthGetCurrentUser(),
             ),
+        ),
+        BlocProvider(
+          create: (context) => UserBloc(),
         ),
       ],
       child: MaterialApp(
