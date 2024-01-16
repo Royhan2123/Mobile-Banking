@@ -41,7 +41,7 @@ class _TopUpPageState extends State<TopUpPage> {
           children: [
             const SizedBox(
               height: 25,
-            ),
+            ), 
             Text(
               "Wallet",
               style: blackStyle.copyWith(fontSize: 16, fontWeight: semiBold),

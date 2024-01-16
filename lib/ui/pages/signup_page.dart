@@ -172,6 +172,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                 context.read<AuthBloc>().add(
                                       AuthCheckEmail(txtEmail.text),
                                     );
+                              } else {
+                                showCustomSnackbar(
+                                    context, "Isi field terlebih dahulu");
                               }
                             },
                             child: Text(

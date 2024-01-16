@@ -51,32 +51,31 @@ class TransferPage extends StatelessWidget {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20))),
             ),
-            //  buildRecentUsers(),
-            buildResult(),
-            const SizedBox(
-              height: 230,
-            ),
-            Center(
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.blue,
-                      shadowColor: Colors.black,
-                      backgroundColor: purpleColor,
-                      shape: const StadiumBorder(),
-                      minimumSize: const Size(350, 40)),
-                  onPressed: () async {
-                    Navigator.pushNamed(context, '/transferAmountPage');
-                  },
-                  child: Text(
-                    "Continue",
-                    style: whiteStyle.copyWith(fontSize: 13),
-                  )),
-            ),
+            buildRecentUsers(),
+            // buildResult(),
             const SizedBox(
               height: 20,
             ),
           ],
         ),
+        floatingActionButton: Container(
+          margin: const EdgeInsets.all(20),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.blue,
+                  shadowColor: Colors.black,
+                  backgroundColor: purpleColor,
+                  shape: const StadiumBorder(),
+                  minimumSize: const Size(350, 40)),
+              onPressed: () async {
+                Navigator.pushNamed(context, '/transferAmountPage');
+              },
+              child: Text(
+                "Continue",
+                style: whiteStyle.copyWith(fontSize: 13),
+              )),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
