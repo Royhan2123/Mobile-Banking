@@ -146,7 +146,10 @@ class _TransferPageState extends State<TransferPage> {
                 child: CircularProgressIndicator(),
               );
             },
-          )
+          ),
+          const SizedBox(
+            height: 20,
+          ),
         ],
       ),
     );
@@ -185,6 +188,9 @@ class _TransferPageState extends State<TransferPage> {
                       ),
                     );
                   }).toList(),
+                ),
+                const SizedBox(
+                  height: 80,
                 ),
               ],
             );
