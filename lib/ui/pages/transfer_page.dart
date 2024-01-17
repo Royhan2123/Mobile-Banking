@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_ebanking/bloc/user/user_bloc.dart';
+import 'package:mobile_ebanking/models/transfer_form_model.dart';
 import 'package:mobile_ebanking/models/users_model.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
+import 'package:mobile_ebanking/ui/pages/transfer_amount_page.dart';
 import 'package:mobile_ebanking/ui/widgets/transfer_result_item.dart';
 import 'package:mobile_ebanking/ui/widgets/trasnfer_recent_user_item.dart';
 
@@ -107,7 +109,15 @@ class _TransferPageState extends State<TransferPage> {
                         shape: const StadiumBorder(),
                         minimumSize: const Size(350, 40)),
                     onPressed: () async {
-                      Navigator.pushNamed(context, '/transferAmountPage');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TransferAmountPage(
+                            data: TransferFormModel(
+                                sendTo: selectedUser!.userName),
+                          ),
+                        ),
+                      );
                     },
                     child: Text(
                       "Continue",
@@ -138,7 +148,19 @@ class _TransferPageState extends State<TransferPage> {
               if (state is UserSucces) {
                 return Column(
                   children: state.user.map((user) {
-                    return TransferRecentUserItem(user: user);
+                    return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TransferAmountPage(
+                                data: TransferFormModel(
+                                    sendTo: user.userName),
+                              ),
+                            ),
+                          );
+                        },
+                        child: TransferRecentUserItem(user: user));
                   }).toList(),
                 );
               }
