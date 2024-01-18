@@ -6,3 +6,5 @@ sealed class OperatorCardEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class OperatorCardGet extends OperatorCardEvent {}
