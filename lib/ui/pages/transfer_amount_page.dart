@@ -31,7 +31,9 @@ class _TransferAmountPageState extends State<TransferAmountPage> {
                 .format(int.parse(text.replaceAll('.', ''))));
       } catch (e) {
         //ignore: avoid_print
-        print(e.toString());
+        print(
+          e.toString(),
+        );
       }
     });
   }
