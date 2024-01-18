@@ -58,7 +58,9 @@ class DataProviderPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "8008 2208 1996",
+                            state.user.cardNumber!.replaceAllMapped(
+                                RegExp(r".{4}"),
+                                (match) => "${match.group(0)} "),
                             style: blackStyle.copyWith(
                                 fontSize: 16,
                                 fontWeight: medium,
@@ -68,14 +70,15 @@ class DataProviderPage extends StatelessWidget {
                             height: 5,
                           ),
                           Text(
-                            "Balance: ${formatCurrency(180000000)}",
+                            "Balance: ${formatCurrency(state.user.balance!)}",
                             style: greyStyle.copyWith(fontSize: 12),
                           )
                         ],
                       );
                     }
                     return const Center(
-                    child: CircularProgressIndicator(),);
+                      child: CircularProgressIndicator(),
+                    );
                   },
                 )
               ],
