@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
+import 'package:mobile_ebanking/bloc/operator_card/operator_card_bloc.dart';
+import 'package:mobile_ebanking/models/operator_card_models.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
+import 'package:mobile_ebanking/ui/pages/data_packages_page.dart';
 import 'package:mobile_ebanking/ui/widgets/data_provider_item.dart';
 
-class DataProviderPage extends StatelessWidget {
+class DataProviderPage extends StatefulWidget {
   const DataProviderPage({super.key});
 
+  @override
+  State<DataProviderPage> createState() => _DataProviderPageState();
+}
+
+class _DataProviderPageState extends State<DataProviderPage> {
+  OperatorCardModels? selectedOperatorCard;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -93,43 +102,65 @@ class DataProviderPage extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            const DataProviderItem(
-              imageUrl: "assets/img_provider_telkomsel.png",
-              name: "Telkomsel",
-              isSelecteed: true,
-            ),
-            const DataProviderItem(
-              imageUrl: "assets/img_provider_indosat.png",
-              name: "Indosat Ooredo",
-            ),
-            const DataProviderItem(
-              imageUrl: "assets/img_provider_singtel.png",
-              name: "Singtel ID",
+            BlocProvider(
+              create: (context) => OperatorCardBloc()..add(OperatorCardGet()),
+              child: BlocBuilder<OperatorCardBloc, OperatorCardState>(
+                builder: (context, state) {
+                  if (state is OperatorCardSucces) {
+                    return Column(
+                      children: state.operatorCards.map((data) {
+                        return InkWell(
+                          onTap: () {
+                            setState(() {
+                              selectedOperatorCard = data;
+                            });
+                          },
+                          child: DataProviderItem(
+                            data: data,
+                            isSelecteed: data.id == selectedOperatorCard?.id,
+                          ),
+                        );
+                      }).toList(),
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
             ),
             const SizedBox(
               height: 85,
-            ),
-            Center(
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.blue,
-                      shadowColor: Colors.black,
-                      backgroundColor: purpleColor,
-                      shape: const StadiumBorder(),
-                      minimumSize: const Size(350, 40)),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/dataPackagesPage');
-                  },
-                  child: Text(
-                    "Continue",
-                    style: whiteStyle.copyWith(fontSize: 13),
-                  )),
             ),
             const SizedBox(
               height: 30,
             ),
           ],
         ),
+        floatingActionButton: (selectedOperatorCard != null)
+            ? Container(
+                margin: const EdgeInsets.all(25),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.blue,
+                        shadowColor: Colors.black,
+                        backgroundColor: purpleColor,
+                        shape: const StadiumBorder(),
+                        minimumSize: const Size(350, 40)),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DataPackagesPage(),
+                          ));
+                    },
+                    child: Text(
+                      "Continue",
+                      style: whiteStyle.copyWith(fontSize: 13),
+                    )),
+              )
+            : Container(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ebanking/models/operator_card_models.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class DataProviderItem extends StatelessWidget {
-  final String imageUrl;
-  final String name;
+  final OperatorCardModels data;
   final bool isSelecteed;
   const DataProviderItem(
-      {required this.imageUrl,
-      required this.name,
+      {required this.data,
       this.isSelecteed = false,
       super.key});
 
@@ -23,8 +22,8 @@ class DataProviderItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(
-            imageUrl,
+          Image.network(
+            data.thumbnail.toString(),
             height: 30,
             fit: BoxFit.cover,
           ),
@@ -32,14 +31,14 @@ class DataProviderItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                name,
+                data.name.toString(),
                 style: blackStyle.copyWith(fontSize: 15, fontWeight: bold),
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
-                "Available",
+                data.status.toString(),
                 style: greyStyle.copyWith(
                   fontSize: 13,
                 ),
