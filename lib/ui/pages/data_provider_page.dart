@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/widgets/data_provider_item.dart';
@@ -49,22 +51,32 @@ class DataProviderPage extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "8008 2208 1996",
-                      style: blackStyle.copyWith(
-                          fontSize: 16, fontWeight: medium, letterSpacing: 1),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "Balance: ${formatCurrency(180000000)}",
-                      style: greyStyle.copyWith(fontSize: 12),
-                    )
-                  ],
+                BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    if (state is AuthSucces) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "8008 2208 1996",
+                            style: blackStyle.copyWith(
+                                fontSize: 16,
+                                fontWeight: medium,
+                                letterSpacing: 1),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Balance: ${formatCurrency(180000000)}",
+                            style: greyStyle.copyWith(fontSize: 12),
+                          )
+                        ],
+                      );
+                    }
+                    return const Center(
+                    child: CircularProgressIndicator(),);
+                  },
                 )
               ],
             ),
