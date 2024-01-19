@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/bloc/operator_card/operator_card_bloc.dart';
-import 'package:mobile_ebanking/models/operator_card_models.dart';
+import 'package:mobile_ebanking/models/operator_card_model.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/pages/data_packages_page.dart';
@@ -16,7 +16,7 @@ class DataProviderPage extends StatefulWidget {
 }
 
 class _DataProviderPageState extends State<DataProviderPage> {
-  OperatorCardModels? selectedOperatorCard;
+  OperatorCardModel? selectedOperatorCard;
   @override
   Widget build(BuildContext context) {
     return SafeArea(

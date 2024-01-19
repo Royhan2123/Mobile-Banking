@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mobile_ebanking/models/operator_card_models.dart';
+import 'package:mobile_ebanking/models/operator_card_model.dart';
 import 'package:mobile_ebanking/services/operator_card_services.dart';
 
 part 'operator_card_event.dart';

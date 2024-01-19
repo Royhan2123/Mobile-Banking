@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:mobile_ebanking/models/operator_card_models.dart';
+import 'package:mobile_ebanking/models/operator_card_model.dart';
 import 'package:mobile_ebanking/services/auth_services.dart';
 
 class OperatorCardServices {
   String baseUrl = "https://bwabank.my.id/api";
 
-  Future<List<OperatorCardModels>> getOperatorCard() async {
+  Future<List<OperatorCardModel>> getOperatorCard() async {
     try {
       final token = await AuthServices().getToken();
 
@@ -18,9 +18,9 @@ class OperatorCardServices {
         },
       );
       if (response.statusCode == 200) {
-        return List<OperatorCardModels>.from(
+        return List<OperatorCardModel>.from(
           jsonDecode(response.body)["data"].map(
-            (operatorCard) => OperatorCardModels.fromJson(operatorCard),
+            (operatorCard) => OperatorCardModel.fromJson(operatorCard),
           ),
         ).toList();
       } else {

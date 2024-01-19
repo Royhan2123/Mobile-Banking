@@ -12,7 +12,7 @@ final class OperatorCardInitial extends OperatorCardState {}
 final class OperatorCardLoading extends OperatorCardState {}
 
 final class OperatorCardSucces extends OperatorCardState {
-  final List<OperatorCardModels> operatorCards;
+  final List<OperatorCardModel> operatorCards;
 
   const OperatorCardSucces(this.operatorCards);
 

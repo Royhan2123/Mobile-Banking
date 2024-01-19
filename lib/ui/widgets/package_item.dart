@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ebanking/models/data_plan_model.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class PackageItem extends StatelessWidget {
-  final String title;
-  final int price;
+  final DataPlanModel data;
   final bool iSelected;
   const PackageItem(
-      {required this.price,
-      required this.title,
+      {required this.data,
       this.iSelected = false,
       super.key});
 
@@ -25,14 +24,14 @@ class PackageItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "${title}GB",
+           data.name.toString(),
             style: blackStyle.copyWith(fontSize: 20, fontWeight: semiBold),
           ),
           const SizedBox(
             height: 10,
           ),
           Text(
-            formatCurrency(price),
+            formatCurrency(data.price ?? 0),
             style: greyStyle.copyWith(fontSize: 13),
           ),
         ],

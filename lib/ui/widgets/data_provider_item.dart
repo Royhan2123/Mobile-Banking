@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_ebanking/models/operator_card_models.dart';
+import 'package:mobile_ebanking/models/operator_card_model.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 
 class DataProviderItem extends StatelessWidget {
-  final OperatorCardModels data;
+  final OperatorCardModel data;
   final bool isSelecteed;
   const DataProviderItem(
       {required this.data,

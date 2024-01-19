@@ -1,18 +1,22 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:mobile_ebanking/models/operator_card_models.dart';
+import 'package:mobile_ebanking/models/data_plan_model.dart';
+import 'package:mobile_ebanking/models/operator_card_model.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/widgets/package_item.dart';
 
 class DataPackagesPage extends StatefulWidget {
-  final OperatorCardModels data;
+  final OperatorCardModel data;
   const DataPackagesPage({required this.data, super.key});
   @override
   State<DataPackagesPage> createState() => _DataPackagesPageState();
 }
 
 class _DataPackagesPageState extends State<DataPackagesPage> {
+  final phoneController = TextEditingController(text: "");
+  DataPlanModel? selectDataPlan;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,6 +56,7 @@ class _DataPackagesPageState extends State<DataPackagesPage> {
               height: 15,
             ),
             TextField(
+              controller: phoneController,
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
                   hintText: "+628",
@@ -71,46 +76,54 @@ class _DataPackagesPageState extends State<DataPackagesPage> {
             const SizedBox(
               height: 10,
             ),
-            const Wrap(spacing: 20, runSpacing: 20, children: [
-              PackageItem(price: 100000, title: "10"),
-              PackageItem(
-                price: 420000,
-                title: "25",
-                iSelected: true,
-              ),
-              PackageItem(
-                price: 2500000,
-                title: "40",
-              ),
-              PackageItem(price: 500000, title: "99"),
-            ]),
+            Wrap(
+              spacing: 17,
+              runSpacing: 17,
+              children: widget.data.dataPlans!.map((dataPlan) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectDataPlan = dataPlan;
+                    });
+                  },
+                  child: PackageItem(
+                    data: dataPlan,
+                    iSelected: dataPlan.id == selectDataPlan!.id,
+                  ),
+                );
+              }).toList(),
+            ),
             const SizedBox(
               height: 85,
-            ),
-            Center(
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.blue,
-                      shadowColor: Colors.black,
-                      backgroundColor: purpleColor,
-                      shape: const StadiumBorder(),
-                      minimumSize: const Size(350, 40)),
-                  onPressed: () async {
-                    if (await Navigator.pushNamed(context, '/pinPage') ==
-                        true) {
-                      await Navigator.pushNamed(context, '/dataSucces');
-                    }
-                  },
-                  child: Text(
-                    "Continue",
-                    style: whiteStyle.copyWith(fontSize: 13),
-                  )),
             ),
             const SizedBox(
               height: 20,
             ),
           ],
         ),
+        floatingActionButton: (selectDataPlan != null)
+            ? Container(
+                margin: const EdgeInsets.all(25),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.blue,
+                        shadowColor: Colors.black,
+                        backgroundColor: purpleColor,
+                        shape: const StadiumBorder(),
+                        minimumSize: const Size(350, 40)),
+                    onPressed: () async {
+                      if (await Navigator.pushNamed(context, '/pinPage') ==
+                          true) {
+                        await Navigator.pushNamed(context, '/dataSucces');
+                      }
+                    },
+                    child: Text(
+                      "Continue",
+                      style: whiteStyle.copyWith(fontSize: 13),
+                    )),
+              )
+            : Container(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
