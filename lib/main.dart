@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
 import 'package:mobile_ebanking/bloc/user/user_bloc.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
-import 'package:mobile_ebanking/ui/pages/data_packages_page.dart';
 import 'package:mobile_ebanking/ui/pages/data_provider_page.dart';
 import 'package:mobile_ebanking/ui/pages/data_succes.dart';
 import 'package:mobile_ebanking/ui/pages/home_page.dart';
@@ -63,7 +62,6 @@ class NewApp extends StatelessWidget {
           '/transferPage': (context) => const TransferPage(),
           '/transferSuccesPage': (context) => const TransferSuccesPage(),
           '/dataProviderPage': (context) => const DataProviderPage(),
-          '/dataPackagesPage': (context) => const DataPackagesPage(),
           '/dataSucces': (context) => const DataSucces(),
         },
       ),

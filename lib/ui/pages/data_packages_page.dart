@@ -1,12 +1,18 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:mobile_ebanking/models/operator_card_models.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/widgets/package_item.dart';
 
-class DataPackagesPage extends StatelessWidget {
-  const DataPackagesPage({super.key});
+class DataPackagesPage extends StatefulWidget {
+  final OperatorCardModels data;
+  const DataPackagesPage({required this.data, super.key});
+  @override
+  State<DataPackagesPage> createState() => _DataPackagesPageState();
+}
 
+class _DataPackagesPageState extends State<DataPackagesPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

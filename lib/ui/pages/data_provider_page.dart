@@ -151,7 +151,9 @@ class _DataProviderPageState extends State<DataProviderPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DataPackagesPage(),
+                            builder: (context) =>  DataPackagesPage(
+                              data: selectedOperatorCard!,
+                            ),
                           ));
                     },
                     child: Text(
