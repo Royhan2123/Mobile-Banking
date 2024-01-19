@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:mobile_ebanking/models/data_plan_form_model.dart';
 import 'package:mobile_ebanking/models/topup_form_model.dart';
 import 'package:mobile_ebanking/models/transfer_form_model.dart';
 import 'package:mobile_ebanking/services/auth_services.dart';
@@ -57,4 +58,27 @@ class TransactionServices {
       rethrow;
     }
   }
+
+  Future<void> dataPlan(DataPlanFormModel data) async {
+    try {
+      print(data.toJson());
+      final token = await AuthServices().getToken();
+
+      final res = await http.post(
+        Uri.parse('$baseUrl/data_plans'),
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        body: data.toJson(),
+      );
+
+      print(res.body);
+
+      if (res.statusCode != 200) {
+        throw jsonDecode(res.body)['message'];
+      }
+    } catch (e) {
+      rethrow;
+    }
+  } 
 }
