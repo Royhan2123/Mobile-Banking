@@ -26,7 +26,9 @@ class _DataPackagesPageState extends State<DataPackagesPage> {
           elevation: 0,
           centerTitle: true,
           leading: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+            },
             child: Icon(
               Icons.arrow_back_ios_new_outlined,
               size: 20,
@@ -88,7 +90,7 @@ class _DataPackagesPageState extends State<DataPackagesPage> {
                   },
                   child: PackageItem(
                     data: dataPlan,
-                    iSelected: dataPlan.id == selectDataPlan!.id,
+                    iSelected: dataPlan.id == selectDataPlan?.id,
                   ),
                 );
               }).toList(),
