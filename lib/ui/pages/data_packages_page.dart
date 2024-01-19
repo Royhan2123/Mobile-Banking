@@ -1,6 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
+import 'package:mobile_ebanking/bloc/data_plan/data_plan_bloc.dart';
+import 'package:mobile_ebanking/models/data_plan_form_model.dart';
 import 'package:mobile_ebanking/models/data_plan_model.dart';
 import 'package:mobile_ebanking/models/operator_card_model.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
@@ -116,7 +120,22 @@ class _DataPackagesPageState extends State<DataPackagesPage> {
                     onPressed: () async {
                       if (await Navigator.pushNamed(context, '/pinPage') ==
                           true) {
-                        await Navigator.pushNamed(context, '/dataSucces');
+                        final authState = context.read<AuthBloc>().state;
+                        String pin = "";
+
+                        if (authState is AuthSucces) {
+                          pin = authState.user.pin!;
+                        }
+
+                        context.read<DataPlanBloc>().add(
+                              DataPlanPost(
+                                DataPlanFormModel(
+                                  dataPlanId: selectDataPlan?.id,
+                                  phoneNumber: phoneController.text,
+                                  pin: pin,
+                                ),
+                              ),
+                            );
                       }
                     },
                     child: Text(
