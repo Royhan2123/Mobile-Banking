@@ -6,3 +6,12 @@ sealed class DataPlanEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class DataPlanPost extends DataPlanEvent {
+    final DataPlanFormModel data;
+
+  const DataPlanPost(this.data);
+
+  @override
+  List<Object> get props => [data];
+}
