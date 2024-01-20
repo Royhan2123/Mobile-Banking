@@ -16,10 +16,12 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
           );
           final transactionModels =
               await TransactionServices().getTransaction();
+          print(transactionModels);
           emit(
             TransactionSucces(transactionModels),
           );
         } catch (e) {
+          print(e);
           emit(
             TransactionFailed(
               e.toString(),

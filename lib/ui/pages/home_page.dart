@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_ebanking/bloc/auth/auth_bloc.dart';
+import 'package:mobile_ebanking/bloc/transaction/transaction_bloc.dart';
 import 'package:mobile_ebanking/shared/shared_methods.dart';
 import 'package:mobile_ebanking/shared/theme.dart';
 import 'package:mobile_ebanking/ui/pages/home_latest_transaction.dart';
@@ -332,46 +333,61 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
             ),
-            child: Column(
-              children: [
-                HomeLatestTransactionItem(
-                    iconUrl: "assets/ic_transaction_cat1.png",
-                    time: "Yesterday",
-                    title: "Top Up",
-                    value: "+ ${formatCurrency(450000, symbol: '')}"),
-                const SizedBox(
-                  height: 25,
-                ),
-                HomeLatestTransactionItem(
-                    iconUrl: "assets/ic_transaction_cat2.png",
-                    time: "Sep 11",
-                    title: "Cashback",
-                    value: "+ ${formatCurrency(22000, symbol: '')}"),
-                const SizedBox(
-                  height: 25,
-                ),
-                HomeLatestTransactionItem(
-                    iconUrl: "assets/ic_transaction_cat3.png",
-                    time: "Sep 2",
-                    title: "WithDraw",
-                    value: "- ${formatCurrency(5000, symbol: '')}"),
-                const SizedBox(
-                  height: 25,
-                ),
-                HomeLatestTransactionItem(
-                    iconUrl: "assets/ic_transaction_cat4.png",
-                    time: "Aug 27",
-                    title: "Transfer",
-                    value: "- ${formatCurrency(123500, symbol: '')}"),
-                const SizedBox(
-                  height: 25,
-                ),
-                HomeLatestTransactionItem(
-                    iconUrl: "assets/ic_transaction_cat5.png",
-                    time: "Feb 18",
-                    title: "Electric",
-                    value: "- ${formatCurrency(12300000, symbol: '')}"),
-              ],
+            child: BlocProvider(
+              create: (context) => TransactionBloc()..add(TransactionGet()),
+              child: BlocBuilder<TransactionBloc, TransactionState>(
+                builder: (context, state) {
+                  if (state is TransactionSucces) {
+                    
+                    return Column(
+                      children: [
+                        HomeLatestTransactionItem(
+                            iconUrl: "assets/ic_transaction_cat1.png",
+                            time: "Yesterday",
+                            title: "Top Up",
+                            value: "+ ${formatCurrency(450000, symbol: '')}"),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        HomeLatestTransactionItem(
+                            iconUrl: "assets/ic_transaction_cat2.png",
+                            time: "Sep 11",
+                            title: "Cashback",
+                            value: "+ ${formatCurrency(22000, symbol: '')}"),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        HomeLatestTransactionItem(
+                            iconUrl: "assets/ic_transaction_cat3.png",
+                            time: "Sep 2",
+                            title: "WithDraw",
+                            value: "- ${formatCurrency(5000, symbol: '')}"),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        HomeLatestTransactionItem(
+                            iconUrl: "assets/ic_transaction_cat4.png",
+                            time: "Aug 27",
+                            title: "Transfer",
+                            value: "- ${formatCurrency(123500, symbol: '')}"),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        HomeLatestTransactionItem(
+                            iconUrl: "assets/ic_transaction_cat5.png",
+                            time: "Feb 18",
+                            title: "Electric",
+                            value: "- ${formatCurrency(12300000, symbol: '')}"),
+                      ],
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.red,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],

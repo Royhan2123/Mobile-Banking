@@ -27,7 +27,7 @@ class TransactionModels {
             ? null
             : PaymenMethodModel.fromJson(
                 json["payment_method"],
-              ),
+              ),  
         transactionTypeModel: json["transaction_type"] == null
             ? null
             : TransactionTypeModel.fromJson(
