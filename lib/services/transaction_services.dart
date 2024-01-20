@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobile_ebanking/models/data_plan_form_model.dart';
 import 'package:mobile_ebanking/models/topup_form_model.dart';
+import 'package:mobile_ebanking/models/transaction_models.dart';
 import 'package:mobile_ebanking/models/transfer_form_model.dart';
 import 'package:mobile_ebanking/services/auth_services.dart';
 
@@ -80,5 +81,30 @@ class TransactionServices {
     } catch (e) {
       rethrow;
     }
-  } 
+  }
+
+  Future<List<TransactionModels>> getTransaction() async {
+    try {
+      final token = await AuthServices().getToken();
+
+      final response = await http.get(
+        Uri.parse("$baseUrl/transactions"),
+        headers: { 
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return List<TransactionModels>.from(
+          jsonDecode(response.body)["data"].map(
+            (transaction) => TransactionModels.fromJson(transaction),
+          ),
+        ).toList();
+      } else {
+        throw jsonDecode(response.body)["message"];
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
