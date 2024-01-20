@@ -90,11 +90,13 @@ class _DataPackagesPageState extends State<DataPackagesPage> {
                     controller: phoneController,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
-                        hintText: "+628",
-                        hintStyle: greyStyle.copyWith(fontSize: 14),
-                        contentPadding: const EdgeInsets.all(12),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20))),
+                      hintText: "+628",
+                      hintStyle: greyStyle.copyWith(fontSize: 14),
+                      contentPadding: const EdgeInsets.all(12),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     height: 40,
