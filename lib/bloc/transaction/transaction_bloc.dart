@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:mobile_ebanking/models/transaction_models.dart';
 
 part 'transaction_event.dart';
 part 'transaction_state.dart';
