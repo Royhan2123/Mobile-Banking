@@ -1,7 +1,6 @@
 <h2>MOBILE BANKING E-WALLET</h2>
 
 <p>Aplikasi ini bertujuan untuk membuat sebuah aplikasi e banking seperti brimo,dana,dll</p>
-<h2>#ON PROGRESS</h2>
 <h3>Pembuatannya menggunakan teknologi</h3>
 <ul>
   <li>Dart</li>
